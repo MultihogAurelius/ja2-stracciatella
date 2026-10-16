@@ -6,6 +6,7 @@
 #include "WCheck.h"
 #include "Debug.h"
 #include "Animation_Data.h"
+#include "Visual_Equipment.h"
 #include "Animation_Control.h"
 #include "Soldier_Control.h"
 #include "ContentManager.h"
@@ -583,6 +584,7 @@ static void DeleteAnimationProfiles(void);
 
 void DeInitAnimationSystem()
 {
+	ResetVisualEquipment();
 	FOR_EACH(AnimationSurfaceType, i, gAnimSurfaceDatabase)
 	{
 		SGPVObject*& vo = i->hVideoObject;

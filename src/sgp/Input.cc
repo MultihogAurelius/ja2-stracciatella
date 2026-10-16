@@ -3,11 +3,13 @@
 #include "English.h"
 #include "Timer.h"
 #include "Video.h"
+#include "Interface_Scaling.h"
 #include "UILayout.h"
 
 #include <string_theory/string>
 
 #include <bitset>
+#include <algorithm>
 
 #define BUTTON_REPEAT_TIMEOUT		250
 #define BUTTON_REPEAT_TIME			50
@@ -125,6 +127,8 @@ static void QueueKeyEvent(UINT16 ubInputEvent, SDL_Keycode Key, SDL_Keymod Mod, 
 }
 
 void SetSafeMousePosition(int x, int y) {
+	auto const position = DisplayToInterface(GetInterfacePresentation(),{x,y});
+	x = position.x; y = position.y;
 	if (x < 0) x = 0;
 	if (y < 0) y = 0;
 	if (x > SCREEN_WIDTH) x = SCREEN_WIDTH;
@@ -404,6 +408,7 @@ static void KeyChange(SDL_Keysym const* const key_sym, bool const pressed)
 
 void KeyDown(const SDL_Keysym* KeySym)
 {
+	if (VideoHandleInterfaceScaleKey(KeySym->sym,static_cast<SDL_Keymod>(KeySym->mod))) return;
 	switch (KeySym->sym)
 	{
 		case SDLK_LSHIFT:
@@ -581,6 +586,8 @@ void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 	if (gfIsUsingTouch) {
 		return;
 	}
+	auto const presented = InterfaceToDisplay(GetInterfacePresentation(),
+		{static_cast<int>(uiNewXPos),static_cast<int>(uiNewYPos)});
 
 	int windowWidth, windowHeight;
 	SDL_GetWindowSize(GAME_WINDOW, &windowWidth, &windowHeight);
@@ -592,15 +599,15 @@ void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 
 	double scaleFactorX = windowWidthD / screenWidthD;
 	double scaleFactorY = windowHeightD / screenHeightD;
-	double scaleFactor = windowWidth > windowHeight ? scaleFactorY : scaleFactorX;
+	double scaleFactor = std::min(scaleFactorX,scaleFactorY);
 
 	double scaledWindowWidth = scaleFactor * screenWidthD;
 	double scaledWindowHeight = scaleFactor * screenHeightD;
 
 	double paddingX = (windowWidthD - scaledWindowWidth) / 2.0;
 	double paddingY = (windowHeight - scaledWindowHeight) / 2.0;
-	int windowPositionX = paddingX + (double)uiNewXPos * scaledWindowWidth / screenWidthD;
-	int windowPositionY = paddingY + (double)uiNewYPos * scaledWindowHeight / screenHeightD;
+	int windowPositionX = paddingX + (double)presented.x * scaledWindowWidth / screenWidthD;
+	int windowPositionY = paddingY + (double)presented.y * scaledWindowHeight / screenHeightD;
 
 	SDL_WarpMouseInWindow(GAME_WINDOW, windowPositionX, windowPositionY);
 }

@@ -1,0 +1,2433 @@
+{
+  "enabled": true,
+  "item": "STEEL_HELMET",
+  "item_index": 176,
+  "palette": "visual-equipment/steel-helmet-palette.stp",
+  "source": "JA2 1.13 LOBOT Steel Helmet artwork and animation mappings",
+  "mappings": [
+    {
+      "body": "BGM",
+      "animation": "BGMSIDESTEP",
+      "base_sprite": "anims/m_merc/m_r_sdsp.sti",
+      "weapon": "PistolLeft",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DBL_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_WALK",
+      "base_sprite": "anims/m_merc/m_n_walk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_RUN",
+      "base_sprite": "anims/m_merc/m_n_run.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSIDESTEP",
+      "base_sprite": "anims/m_merc/m_r_sdsp.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPISTOLDRUNK",
+      "base_sprite": "anims/m_merc/m_n_drnk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_N_STD",
+      "base_sprite": "anims/m_merc/mw_n_std.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_P_BRTH_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_N_WALK",
+      "base_sprite": "anims/m_merc/mw_n_wal.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_P_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_N_AIM",
+      "base_sprite": "anims/m_merc/mw_n_sht.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_P_SHOT_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMOPEN",
+      "base_sprite": "anims/m_merc/m_open.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_RIFLE_OPEN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCOWER",
+      "base_sprite": "anims/m_merc/m_cower.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_COWER_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMKICKDOOR",
+      "base_sprite": "anims/m_merc/m_dr_kck.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_DR_KICK_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSHOEDUST",
+      "base_sprite": "anims/m_merc/m_shoedust.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_SHOEDUST_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHEADTURN",
+      "base_sprite": "anims/m_merc/m_hedturn.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_WIPE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMIDLENECK",
+      "base_sprite": "anims/m_merc/m_neck.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_NECK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDRUNK",
+      "base_sprite": "anims/m_merc/m_r_drnk.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSHOOT_LOW",
+      "base_sprite": "anims/m_merc/m_shtlow.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPUNCH",
+      "base_sprite": "anims/m_merc/m_punch.sti",
+      "weapon": "BluntMeleeWeapon",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_BLUNT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPUNCHLOW",
+      "base_sprite": "anims/m_merc/m_pch_lo.sti",
+      "weapon": "BluntMeleeWeapon",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_C_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSTANDING",
+      "base_sprite": "anims/m_merc/m_r_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_STD_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMTHREATENSTAND",
+      "base_sprite": "anims/m_merc/m_breth2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWALKING",
+      "base_sprite": "anims/m_merc/m_r_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_WALK_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWALK2",
+      "base_sprite": "anims/m_merc/m_walk2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMRUNNING",
+      "base_sprite": "anims/m_merc/m_r_run2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_RUN_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMRUN2",
+      "base_sprite": "anims/m_merc/m_r_run.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCROUCHING",
+      "base_sprite": "anims/m_merc/m_r_c.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_C_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCROUCHTRANS",
+      "base_sprite": "anims/m_merc/m_c_tran.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_C_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSIDESTEP",
+      "base_sprite": "anims/m_merc/m_r_sdsp.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSNEAKING",
+      "base_sprite": "anims/m_merc/m_r_swat.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_SWAT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMRAISE",
+      "base_sprite": "anims/m_merc/m_raise.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_RAISE_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMRAISE2",
+      "base_sprite": "anims/m_merc/m_raise2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_RAISE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSTANDAIM",
+      "base_sprite": "anims/m_merc/m_sr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_SR_AIM_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSTANDAIM2",
+      "base_sprite": "anims/m_merc/m_sr_am2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_SR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCROUCHAIM",
+      "base_sprite": "anims/m_merc/m_cr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_CR_AIM_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPRONE",
+      "base_sprite": "anims/m_merc/m_r_prn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_PRN_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMRHIT",
+      "base_sprite": "anims/m_merc/m_r_hit.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_HIT_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHOPFENCE",
+      "base_sprite": "anims/m_merc/m_hop.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_HOP_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPUNCH",
+      "base_sprite": "anims/m_merc/m_punch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_STD",
+      "base_sprite": "anims/m_merc/m_n_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDBLBREATH",
+      "base_sprite": "anims/m_merc/m_dbl_br.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMOPEN",
+      "base_sprite": "anims/m_merc/m_open.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_OPEN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPICKUP",
+      "base_sprite": "anims/m_merc/m_pickup.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_PICKUP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMMEDIC",
+      "base_sprite": "anims/m_merc/m_medic.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_MEDIC_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHITPRONE",
+      "base_sprite": "anims/m_merc/m_p_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_CROUCH",
+      "base_sprite": "anims/m_merc/m_n_crch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_CRCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_SWAT",
+      "base_sprite": "anims/m_merc/m_n_swat.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_SWAT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_RUN",
+      "base_sprite": "anims/m_merc/m_n_run.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMNOTHING_WALK",
+      "base_sprite": "anims/m_merc/m_n_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHANDGUN_PRONE",
+      "base_sprite": "anims/m_merc/m_n_prne.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_PRNE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDWPRONE",
+      "base_sprite": "anims/m_merc/m_db_prn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DB_PRN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPISTOLBREATH",
+      "base_sprite": "anims/m_merc/m_p_brth.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_BRTH_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHANDGUN_S_SHOT",
+      "base_sprite": "anims/m_merc/m_n_shot.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_SHOT_HERO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPISTOLSHOOTLOW",
+      "base_sprite": "anims/m_merc/m_p_shlo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSHOOT_LOW",
+      "base_sprite": "anims/m_merc/m_shtlow.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_P_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHANDGUN_C_SHOT",
+      "base_sprite": "anims/m_merc/m_n_c_ai.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_CR_AIM_P_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCDBLSHOT",
+      "base_sprite": "anims/m_merc/mc_dblsh.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_CR_AIM_D_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSTANDDWALAIM",
+      "base_sprite": "anims/m_merc/m_dblsht.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DBLSHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHURTSTANDINGN",
+      "base_sprite": "anims/m_merc/m_i_br_n.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_PAIN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHURTSTANDINGR",
+      "base_sprite": "anims/m_merc/m_i_br_r.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_PAIN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHITSTAND",
+      "base_sprite": "anims/m_merc/m_diefwd.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_D_FWD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHITCROUCH",
+      "base_sprite": "anims/m_merc/m_c_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_C_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCOWER",
+      "base_sprite": "anims/m_merc/m_cower.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_COWER_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCLIMBROOF",
+      "base_sprite": "anims/m_merc/m_climb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_CLIMB_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMROLLOVER",
+      "base_sprite": "anims/m_merc/m_roll.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_ROLL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHITFALLBACK",
+      "base_sprite": "anims/m_merc/m_diebac.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DIEBAC_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHITHARD",
+      "base_sprite": "anims/m_merc/m_diehd.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DIEHARD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHITHARDBLOOD",
+      "base_sprite": "anims/m_merc/m_diehdb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DIEHARDB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHURTWALKINGR",
+      "base_sprite": "anims/m_merc/m_i_wk_r.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_R_WALK_HURT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDODGE",
+      "base_sprite": "anims/m_merc/m_dodge.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DODGE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMTHROW",
+      "base_sprite": "anims/m_merc/m_throw.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMLOB",
+      "base_sprite": "anims/m_merc/m_lob.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_LOB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMKICKDOOR",
+      "base_sprite": "anims/m_merc/m_dr_kck.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_DR_KICK_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSTRECH",
+      "base_sprite": "anims/m_merc/m_strtch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_STRETCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMRADIO",
+      "base_sprite": "anims/m_merc/m_radio.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_RADIO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMFLEX",
+      "base_sprite": "anims/m_merc/m_flex.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_FLEX_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSTAB",
+      "base_sprite": "anims/m_merc/m_stab.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_STAB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSLICE",
+      "base_sprite": "anims/m_merc/m_slice.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_SLICE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMTHROWKNIFE",
+      "base_sprite": "anims/m_merc/m_k_thro.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_K_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMBREATHKNIFE",
+      "base_sprite": "anims/m_merc/m_knf_br.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_K_BREATH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCROWBAR",
+      "base_sprite": "anims/m_merc/m_crobar.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPUNCHLOW",
+      "base_sprite": "anims/m_merc/m_pch_lo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_C_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPUNCHLOW",
+      "base_sprite": "anims/m_merc/m_pch_lo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_C_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCSTAB",
+      "base_sprite": "anims/m_merc/m_c_stb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_C_STAB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMCRRADIO",
+      "base_sprite": "anims/m_merc/m_c_rado.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_C_RADIO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMSLEEP",
+      "base_sprite": "anims/m_merc/m_sleep.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_SLEEP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMPISTOLDRUNK",
+      "base_sprite": "anims/m_merc/m_n_drnk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHURTWALKINGN",
+      "base_sprite": "anims/m_merc/m_i_wk_n.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_WALK_HURT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMFALL",
+      "base_sprite": "anims/m_merc/m_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_FALL_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMFALLF",
+      "base_sprite": "anims/m_merc/m_fallf.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_N_FALL_FWD_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "BGM",
+      "animation": "RGMLOWKICK",
+      "base_sprite": "anims/s_merc/k_lw_kick.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_K_LOWKICK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "RGMSPINKICK",
+      "base_sprite": "anims/s_merc/s_spnkck.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_K_SPINKICK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMROCKET",
+      "base_sprite": "anims/m_merc/m_law.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_LAW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMHELIDROP",
+      "base_sprite": "anims/m_merc/m_helidrp.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_heli_Steelhelm.STI",
+      "directions": 1
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_R_STD",
+      "base_sprite": "anims/m_merc/mw_r_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_R_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_R_WALK",
+      "base_sprite": "anims/m_merc/mw_r_wal.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_R_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_R_AIM",
+      "base_sprite": "anims/m_merc/mw_sr_am.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_SR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_N_STD",
+      "base_sprite": "anims/m_merc/mw_n_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_N_WALK",
+      "base_sprite": "anims/m_merc/mw_n_wal.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATERTHROW",
+      "base_sprite": "anims/m_merc/mw_throw.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_TRANS",
+      "base_sprite": "anims/m_merc/mw_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_FALL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_TRANS",
+      "base_sprite": "anims/m_merc/mw_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_FALL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDEEPWATER_TRED",
+      "base_sprite": "anims/m_merc/mw_tred.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_TREAD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDEEPWATER_SWIM",
+      "base_sprite": "anims/m_merc/mw_swim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_SWIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_DIE",
+      "base_sprite": "anims/m_merc/mw_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMDEEPWATER_DIE",
+      "base_sprite": "anims/m_merc/mw_die2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_DROWN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMWATER_DBLSHT",
+      "base_sprite": "anims/m_merc/mw_dbl.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/MW_DBLSHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "BGM",
+      "animation": "BGMMORTAR",
+      "base_sprite": "anims/m_merc/m_mortar.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/BGM/M_MORTAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSIDESTEP",
+      "base_sprite": "anims/f_merc/f_r_sdsp.sti",
+      "weapon": "PistolLeft",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DBL_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFNOTHING_RUN",
+      "base_sprite": "anims/f_merc/f_n_run.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSIDESTEP",
+      "base_sprite": "anims/f_merc/f_r_sdsp.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPISTOLDRUNK",
+      "base_sprite": "anims/f_merc/f_n_drnk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_N_STD",
+      "base_sprite": "anims/f_merc/fw_n_std.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_P_BRTH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_N_WALK",
+      "base_sprite": "anims/f_merc/fw_n_wlk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_N_AIM",
+      "base_sprite": "anims/f_merc/fw_n_sht.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_N_SHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFOPEN",
+      "base_sprite": "anims/f_merc/f_open.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_RIFLE_OPEN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCOWER",
+      "base_sprite": "anims/f_merc/f_cower.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_COWER_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFKICKDOOR",
+      "base_sprite": "anims/f_merc/f_dr_kck.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_DR_KICK_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDRUNK",
+      "base_sprite": "anims/f_merc/f_r_drnk.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSHOOT_LOW",
+      "base_sprite": "anims/f_merc/f_shtlow.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPUNCH",
+      "base_sprite": "anims/f_merc/f_punch.sti",
+      "weapon": "BluntMeleeWeapon",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_BLUNT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPUNCHLOW",
+      "base_sprite": "anims/f_merc/f_pch_lo.sti",
+      "weapon": "BluntMeleeWeapon",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_C_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSTANDING",
+      "base_sprite": "anims/f_merc/f_breth2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWALKING",
+      "base_sprite": "anims/f_merc/f_r_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFRUNNING",
+      "base_sprite": "anims/f_merc/f_r_run.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCROUCHING",
+      "base_sprite": "anims/f_merc/f_r_c.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_C_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSNEAKING",
+      "base_sprite": "anims/f_merc/f_r_swat.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_SWAT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFRAISE",
+      "base_sprite": "anims/f_merc/f_raise.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_RAISE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSTANDAIM",
+      "base_sprite": "anims/f_merc/f_sr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_SR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCROUCHAIM",
+      "base_sprite": "anims/f_merc/f_cr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_CR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPRONE",
+      "base_sprite": "anims/f_merc/f_r_prn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_PRN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSIDESTEP",
+      "base_sprite": "anims/f_merc/f_r_sdsp.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHOPFENCE",
+      "base_sprite": "anims/f_merc/f_hop.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_HOP_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPUNCH",
+      "base_sprite": "anims/f_merc/f_punch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFNOTHING_STD",
+      "base_sprite": "anims/f_merc/n_breth2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDBLBREATH",
+      "base_sprite": "anims/f_merc/f_dbl_br.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_BRTH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFOPEN",
+      "base_sprite": "anims/f_merc/f_open.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_OPEN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPICKUP",
+      "base_sprite": "anims/f_merc/f_pickup.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_PICKUP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFMEDIC",
+      "base_sprite": "anims/f_merc/f_medic.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_MEDIC_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFRHIT",
+      "base_sprite": "anims/f_merc/f_r_hit.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_HIT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFNOTHING_CROUCH",
+      "base_sprite": "anims/f_merc/f_n_crch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_CRCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFNOTHING_SWAT",
+      "base_sprite": "anims/f_merc/f_n_swat.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_SWAT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFNOTHING_RUN",
+      "base_sprite": "anims/f_merc/f_n_run.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFNOTHING_WALK",
+      "base_sprite": "anims/f_merc/f_n_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHANDGUN_PRONE",
+      "base_sprite": "anims/f_merc/f_n_prne.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_PRNE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPISTOLBREATH",
+      "base_sprite": "anims/f_merc/f_p_brth.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_BRTH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHANDGUN_S_SHOT",
+      "base_sprite": "anims/f_merc/f_n_shot.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_SHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHANDGUN_C_SHOT",
+      "base_sprite": "anims/f_merc/f_n_c_ai.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_CR_AIM_P_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPISTOLSHOOTLOW",
+      "base_sprite": "anims/f_merc/f_p_shlo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSHOOT_LOW",
+      "base_sprite": "anims/f_merc/f_shtlow.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSTANDDWALAIM",
+      "base_sprite": "anims/f_merc/f_dblsht.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DBLSHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCDBLSHOT",
+      "base_sprite": "anims/f_merc/fc_dblsh.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_CR_AIM_D_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHITPRONE",
+      "base_sprite": "anims/f_merc/f_p_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_P_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDWPRONE",
+      "base_sprite": "anims/f_merc/f_db_prn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DB_PRN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHURTSTANDINGN",
+      "base_sprite": "anims/f_merc/f_i_br_n.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_PAIN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHURTSTANDINGR",
+      "base_sprite": "anims/f_merc/f_i_br_r.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_PAIN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHITSTAND",
+      "base_sprite": "anims/f_merc/f_diefwd.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_D_FWD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHITCROUCH",
+      "base_sprite": "anims/f_merc/f_c_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_C_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCOWER",
+      "base_sprite": "anims/f_merc/f_cower.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_COWER_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCLIMBROOF",
+      "base_sprite": "anims/f_merc/f_climb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_CLIMB_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFROLLOVER",
+      "base_sprite": "anims/f_merc/f_roll.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_ROLL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHITFALLBACK",
+      "base_sprite": "anims/f_merc/f_diebac.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DIEBAC_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHITHARD",
+      "base_sprite": "anims/f_merc/f_diehd.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DIEHARD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHITHARDBLOOD",
+      "base_sprite": "anims/f_merc/f_diehdb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DIEHARDB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHURTWALKINGR",
+      "base_sprite": "anims/f_merc/f_i_wk_r.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_WALK_HURT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDODGE",
+      "base_sprite": "anims/f_merc/f_dodge.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DODGE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFTHROW",
+      "base_sprite": "anims/f_merc/f_throw.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_THROW_G_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFLOB",
+      "base_sprite": "anims/f_merc/f_lob.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_LOB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFKICKDOOR",
+      "base_sprite": "anims/f_merc/f_dr_kck.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_DR_KICK_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFRADIO",
+      "base_sprite": "anims/f_merc/f_radio.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_RADIO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSTAB",
+      "base_sprite": "anims/f_merc/f_stab.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_STAB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSLICE",
+      "base_sprite": "anims/f_merc/f_slice.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_SLICE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFTHROWKNIFE",
+      "base_sprite": "anims/f_merc/f_k_thro.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_K_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFBREATHKNIFE",
+      "base_sprite": "anims/f_merc/f_knf_br.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_K_BREATH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCROWBAR",
+      "base_sprite": "anims/f_merc/f_crobar.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPUNCHLOW",
+      "base_sprite": "anims/f_merc/f_pch_lo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_C_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPUNCHLOW",
+      "base_sprite": "anims/f_merc/f_pch_lo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_C_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCSTAB",
+      "base_sprite": "anims/f_merc/f_c_stb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_C_STAB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCRRADIO",
+      "base_sprite": "anims/f_merc/f_c_rado.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_C_RADIO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSLEEP",
+      "base_sprite": "anims/f_merc/f_sleep.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_SLEEP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFPISTOLDRUNK",
+      "base_sprite": "anims/f_merc/f_n_drnk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHURTWALKINGN",
+      "base_sprite": "anims/f_merc/f_i_wk_n.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_WALK_HURT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFFALL",
+      "base_sprite": "anims/f_merc/f_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_FALL_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFFALLF",
+      "base_sprite": "anims/f_merc/f_fallf.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_FALL_FWD_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFROCKET",
+      "base_sprite": "anims/f_merc/f_law.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_LAW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFKICKSN",
+      "base_sprite": "anims/f_merc/a_kicksn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_SAND_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWIPE",
+      "base_sprite": "anims/f_merc/a_wipe.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_WIPE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFALOOK",
+      "base_sprite": "anims/f_merc/a_look.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_LOOK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFCLEAN",
+      "base_sprite": "anims/f_merc/a_clean.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_R_CLEAN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_R_STD",
+      "base_sprite": "anims/f_merc/fw_r_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_R_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_R_WALK",
+      "base_sprite": "anims/f_merc/fw_r_wlk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_R_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_R_AIM",
+      "base_sprite": "anims/f_merc/fw_sr_ai.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_SR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_N_STD",
+      "base_sprite": "anims/f_merc/fw_n_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_N_WALK",
+      "base_sprite": "anims/f_merc/fw_n_wlk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATERTHROW",
+      "base_sprite": "anims/f_merc/fw_thrw.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_TRANS",
+      "base_sprite": "anims/f_merc/fw_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_FALL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_TRANS",
+      "base_sprite": "anims/f_merc/fw_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_FALL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDEEPWATER_TRED",
+      "base_sprite": "anims/f_merc/fw_tred.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_TREAD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDEEPWATER_SWIM",
+      "base_sprite": "anims/f_merc/fw_swim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_SWIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_DIE",
+      "base_sprite": "anims/f_merc/fw_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFDEEPWATER_DIE",
+      "base_sprite": "anims/f_merc/fw_die2.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_DROWN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFWATER_DBLSHT",
+      "base_sprite": "anims/f_merc/fw_dbl.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/FW_DBLSHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFHELIDROP",
+      "base_sprite": "anims/f_merc/f_helidrp.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/f_heli_Steelhelm.STI",
+      "directions": 1
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFMORTAR",
+      "base_sprite": "anims/f_merc/f_mortar.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_MORTAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGF",
+      "animation": "RGFSLAP",
+      "base_sprite": "anims/f_merc/f_slap.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGF/F_N_SLAP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSIDESTEP",
+      "base_sprite": "anims/s_merc/s_r_sdsp.sti",
+      "weapon": "PistolLeft",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DBL_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_WALK",
+      "base_sprite": "anims/s_merc/s_n_walk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_P_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_RUN",
+      "base_sprite": "anims/s_merc/s_n_run.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSIDESTEP",
+      "base_sprite": "anims/s_merc/s_r_sdsp.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_P_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPISTOLDRUNK",
+      "base_sprite": "anims/s_merc/s_n_drnk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_N_STD",
+      "base_sprite": "anims/s_merc/sw_n_std.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_P_BRTH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_N_WALK",
+      "base_sprite": "anims/s_merc/sw_n_walk.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_P_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_N_AIM",
+      "base_sprite": "anims/s_merc/sw_n_shot.sti",
+      "weapon": "Pistol",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_N_SHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMOPEN",
+      "base_sprite": "anims/s_merc/s_open.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_RIFLE_OPEN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCOWER",
+      "base_sprite": "anims/s_merc/s_cower.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_COWER_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMKICKDOOR",
+      "base_sprite": "anims/s_merc/s_dr_kck.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_DR_KICK_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGM",
+      "animation": "RGM_SQUISH",
+      "base_sprite": "anims/s_merc/a_squish.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_SQUISH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGM_LOOK",
+      "base_sprite": "anims/s_merc/a_look.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_LOOK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGM_SPIT",
+      "base_sprite": "anims/s_merc/a_spit.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_SPIT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDRUNK",
+      "base_sprite": "anims/s_merc/s_r_drnk.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSHOOT_LOW",
+      "base_sprite": "anims/s_merc/s_shtlo.sti",
+      "weapon": "Rifle",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPUNCH",
+      "base_sprite": "anims/s_merc/s_punch.sti",
+      "weapon": "BluntMeleeWeapon",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_BLUNT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPUNCHLOW",
+      "base_sprite": "anims/s_merc/s_pch_lo.sti",
+      "weapon": "BluntMeleeWeapon",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_C_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSTANDING",
+      "base_sprite": "anims/s_merc/s_r_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMBASICWALKING",
+      "base_sprite": "anims/s_merc/s_r_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMRUNNING",
+      "base_sprite": "anims/s_merc/s_r_run.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCROUCHING",
+      "base_sprite": "anims/s_merc/s_r_c.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_C_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSNEAKING",
+      "base_sprite": "anims/s_merc/s_r_swat.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_SWAT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMRAISE",
+      "base_sprite": "anims/s_merc/s_raise.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_RAISE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSTANDAIM",
+      "base_sprite": "anims/s_merc/s_sr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_SR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCROUCHAIM",
+      "base_sprite": "anims/s_merc/s_cr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_CR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPRONE",
+      "base_sprite": "anims/s_merc/s_r_prn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_PRN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSIDESTEP",
+      "base_sprite": "anims/s_merc/s_r_sdsp.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_SDSP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHOPFENCE",
+      "base_sprite": "anims/s_merc/s_hop.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_HOP_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPUNCH",
+      "base_sprite": "anims/s_merc/s_punch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNPUNCH",
+      "base_sprite": "anims/s_merc/k_punch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_K_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_STD",
+      "base_sprite": "anims/s_merc/s_n_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDBLBREATH",
+      "base_sprite": "anims/s_merc/s_dbl_br.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMOPEN",
+      "base_sprite": "anims/s_merc/s_open.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_OPEN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPICKUP",
+      "base_sprite": "anims/s_merc/s_pickup.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_PICKUP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMMEDIC",
+      "base_sprite": "anims/s_merc/s_medic.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_MEDIC_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMRHIT",
+      "base_sprite": "anims/s_merc/s_r_hit.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_HIT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_CROUCH",
+      "base_sprite": "anims/s_merc/s_n_crch.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_CRCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_SWAT",
+      "base_sprite": "anims/s_merc/s_n_swat.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_SWAT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_RUN",
+      "base_sprite": "anims/s_merc/s_n_run.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_RUN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMNOTHING_WALK",
+      "base_sprite": "anims/s_merc/s_n_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHANDGUN_PRONE",
+      "base_sprite": "anims/s_merc/s_n_prne.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_PRNE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPISTOLBREATH",
+      "base_sprite": "anims/s_merc/s_p_brth.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_P_BRTH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHANDGUN_S_SHOT",
+      "base_sprite": "anims/s_merc/s_n_shot.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_SHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHANDGUN_C_SHOT",
+      "base_sprite": "anims/s_merc/s_n_c_ai.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_CR_AIM_P_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPISTOLSHOOTLOW",
+      "base_sprite": "anims/s_merc/s_p_shlo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_P_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSHOOT_LOW",
+      "base_sprite": "anims/s_merc/s_shtlo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_P_LOW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSTANDDWALAIM",
+      "base_sprite": "anims/s_merc/s_dblsht.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DBLSHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCDBLSHOT",
+      "base_sprite": "anims/s_merc/sc_dblsh.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_CR_AIM_D_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHITPRONE",
+      "base_sprite": "anims/s_merc/s_p_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_P_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDWPRONE",
+      "base_sprite": "anims/s_merc/s_db_prn.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DB_PRN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHURTSTANDINGN",
+      "base_sprite": "anims/s_merc/s_i_br_n.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_PAIN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHURTSTANDINGR",
+      "base_sprite": "anims/s_merc/s_i_br_r.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_PAIN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHITSTAND",
+      "base_sprite": "anims/s_merc/s_diefwd.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_D_FWD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHITCROUCH",
+      "base_sprite": "anims/s_merc/s_c_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_C_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCOWER",
+      "base_sprite": "anims/s_merc/s_cower.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_COWER_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCLIMBROOF",
+      "base_sprite": "anims/s_merc/s_climb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_CLIMB_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMROLLOVER",
+      "base_sprite": "anims/s_merc/s_roll.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_ROLL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHITFALLBACK",
+      "base_sprite": "anims/s_merc/s_diebac.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DIEBAC_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHITHARD",
+      "base_sprite": "anims/s_merc/s_diehd.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DIEHARD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHITHARDBLOOD",
+      "base_sprite": "anims/s_merc/s_diehdb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DIEHARDB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHURTWALKINGR",
+      "base_sprite": "anims/s_merc/s_i_wk_r.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_R_WALK_HURT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDODGE",
+      "base_sprite": "anims/s_merc/s_dodge.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DODGE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMTHROW",
+      "base_sprite": "anims/s_merc/s_lob.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMLOB",
+      "base_sprite": "anims/s_merc/s_throw.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_LOB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMKICKDOOR",
+      "base_sprite": "anims/s_merc/s_dr_kck.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_DR_KICK_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGM",
+      "animation": "RGM_SQUISH",
+      "base_sprite": "anims/s_merc/a_squish.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_SQUISH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMRADIO",
+      "base_sprite": "anims/s_merc/s_radio.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_RADIO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGM_PULL",
+      "base_sprite": "anims/s_merc/a_pull.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_PULL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSTAB",
+      "base_sprite": "anims/s_merc/s_stab.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_STAB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSLICE",
+      "base_sprite": "anims/s_merc/s_slice.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_SLICE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMTHROWKNIFE",
+      "base_sprite": "anims/s_merc/s_k_thro.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_K_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMBREATHKNIFE",
+      "base_sprite": "anims/s_merc/s_knf_br.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_K_BREATH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCROWBAR",
+      "base_sprite": "anims/s_merc/s_crobar.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_CROWBAR_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPUNCHLOW",
+      "base_sprite": "anims/s_merc/s_pch_lo.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_C_PUNCH_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCSTAB",
+      "base_sprite": "anims/s_merc/s_c_stb.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_C_STAB_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMCRRADIO",
+      "base_sprite": "anims/s_merc/s_c_rado.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_C_RADIO_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSLEEP",
+      "base_sprite": "anims/s_merc/s_sleep.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_SLEEP_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMPISTOLDRUNK",
+      "base_sprite": "anims/s_merc/s_n_drnk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_DRUNK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHURTWALKINGN",
+      "base_sprite": "anims/s_merc/s_i_wk_n.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_WALK_HURT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMFALL",
+      "base_sprite": "anims/s_merc/s_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_FALL_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMFALLF",
+      "base_sprite": "anims/s_merc/s_fallf.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_N_FALL_FWD_Steelhelm.STI",
+      "directions": 4
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMLOWKICK",
+      "base_sprite": "anims/s_merc/k_lw_kick.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_K_LOWKICK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMSPINKICK",
+      "base_sprite": "anims/s_merc/s_spnkck.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_K_SPINKICK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMROCKET",
+      "base_sprite": "anims/s_merc/s_law.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_LAW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMHELIDROP",
+      "base_sprite": "anims/s_merc/s_helidrp.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/s_heli_Steelhelm.STI",
+      "directions": 1
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_R_STD",
+      "base_sprite": "anims/s_merc/sw_r_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_R_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_R_WALK",
+      "base_sprite": "anims/s_merc/sw_r_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_R_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_R_AIM",
+      "base_sprite": "anims/s_merc/sw_sr_aim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_SR_AIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_N_STD",
+      "base_sprite": "anims/s_merc/sw_n_std.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_N_STD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_N_WALK",
+      "base_sprite": "anims/s_merc/sw_n_walk.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_N_WALK_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATERTHROW",
+      "base_sprite": "anims/s_merc/sw_lob.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_THROW_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_TRANS",
+      "base_sprite": "anims/s_merc/sw_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_FALL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_TRANS",
+      "base_sprite": "anims/s_merc/sw_fall.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_FALL_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDEEPWATER_TRED",
+      "base_sprite": "anims/s_merc/s_tred.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_TREAD_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDEEPWATER_SWIM",
+      "base_sprite": "anims/s_merc/s_swim.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_SWIM_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_DIE",
+      "base_sprite": "anims/s_merc/sw_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_DIE_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMDEEPWATER_DIE",
+      "base_sprite": "anims/s_merc/s_d_die.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_DROWN_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMWATER_DBLSHT",
+      "base_sprite": "anims/s_merc/sw_dblsht.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/SW_DBLSHOT_Steelhelm.STI",
+      "directions": 8
+    },
+    {
+      "body": "RGM",
+      "animation": "RGMMORTAR",
+      "base_sprite": "anims/s_merc/s_mortar.sti",
+      "weapon": "Any",
+      "sprite": "visual-equipment/steel-helmet/RGM/S_MORTAR_Steelhelm.STI",
+      "directions": 8
+    }
+  ]
+}

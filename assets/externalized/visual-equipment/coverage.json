@@ -1,0 +1,120 @@
+{
+  "sprites": 9184,
+  "mappings": 9789,
+  "conditions": 142,
+  "worn_items": {
+    "SteelHelmet": {
+      "slot": "HELMETPOS",
+      "items": [
+        176
+      ]
+    },
+    "KevlarHelmet": {
+      "slot": "HELMETPOS",
+      "items": [
+        177,
+        178,
+        179
+      ]
+    },
+    "SpectraHelmet": {
+      "slot": "HELMETPOS",
+      "items": [
+        180,
+        181,
+        182
+      ]
+    },
+    "FlakVest": {
+      "slot": "VESTPOS",
+      "items": [
+        161,
+        162,
+        163
+      ]
+    },
+    "KevlarVest": {
+      "slot": "VESTPOS",
+      "items": [
+        164,
+        165,
+        166
+      ]
+    },
+    "SpectraVest": {
+      "slot": "VESTPOS",
+      "items": [
+        167,
+        168,
+        169
+      ]
+    },
+    "GuardianVest": {
+      "slot": "VESTPOS",
+      "items": [
+        196,
+        197,
+        198
+      ]
+    },
+    "KevlarLeggings": {
+      "slot": "LEGPOS",
+      "items": [
+        170,
+        171,
+        172
+      ]
+    },
+    "SpectraLeggings": {
+      "slot": "LEGPOS",
+      "items": [
+        173,
+        174,
+        175
+      ]
+    },
+    "Longsleeves": {
+      "slot": "VESTPOS",
+      "items": [
+        188,
+        189,
+        190,
+        191
+      ]
+    },
+    "Gasmask": {
+      "slot": "FACE",
+      "items": [
+        213
+      ]
+    },
+    "NVG": {
+      "slot": "FACE",
+      "items": [
+        211,
+        246
+      ]
+    },
+    "Goggles": {
+      "slot": "FACE",
+      "items": [
+        212
+      ]
+    },
+    "HeadSet": {
+      "slot": "FACE",
+      "items": [
+        210
+      ]
+    }
+  },
+  "notes": [
+    "T-shirts retain the merc shirt artwork.",
+    "Leather jackets use long sleeves with the merc clothing palette, as in LOBOT.",
+    "Ceramic plates and armour treatments have no separate external layer.",
+    "Creature hides are not human wearable equipment.",
+    "Missing or incompatible animation art falls back to vanilla.",
+    "One-handed SMGs use LOBOT machine-pistol art when no specific one-handed sheet exists.",
+    "M14COPY uses the vanilla M14 visual identity; 1.13 item 331 is a different rifle."
+  ]
+}

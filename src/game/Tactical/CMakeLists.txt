@@ -44,6 +44,7 @@ set(LOCAL_JA2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Map_Information.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Merc_Entering.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Merc_Hiring.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Merc_Acknowledgement.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Militia_Control.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Morale.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/OppList.cc
@@ -74,6 +75,7 @@ set(LOCAL_JA2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Turn_Based_Input.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/UI_Cursors.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Vehicles.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Visual_Equipment.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Weapons.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/World_Items.cc
 )
@@ -82,6 +84,9 @@ if (WITH_UNITTESTS)
     set(LOCAL_JA2_SOURCES
         ${LOCAL_JA2_SOURCES}
         ${CMAKE_CURRENT_SOURCE_DIR}/LoadSaveMercProfile_unittest.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/Merc_Acknowledgement_unittest.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/UI_Cursors_unittest.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/Visual_Equipment_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/Weapons_unittest.cc
     )
 endif()

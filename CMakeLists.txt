@@ -207,8 +207,13 @@ set_property(SOURCE ${CMAKE_SOURCE_DIR}/src/game/GameVersion.cc APPEND PROPERTY 
 
 
 macro(copy_assets_dir_to_ja2_binary_after_build DIR)
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.26")
+        set(ASSET_COPY_COMMAND copy_directory_if_different)
+    else()
+        set(ASSET_COPY_COMMAND copy_directory)
+    endif()
     add_custom_command(TARGET ${JA2_BINARY} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            COMMAND ${CMAKE_COMMAND} -E ${ASSET_COPY_COMMAND}
             ${CMAKE_CURRENT_SOURCE_DIR}/assets/${DIR} "$<TARGET_FILE_DIR:${JA2_BINARY}>/${DIR}")
 endmacro()
 

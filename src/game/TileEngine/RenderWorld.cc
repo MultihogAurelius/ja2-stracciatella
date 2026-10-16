@@ -34,6 +34,7 @@
 #include "VObject.h"
 #include "VObject_Blitters.h"
 #include "VSurface.h"
+#include "Visual_Equipment.h"
 #include "WCheck.h"
 #include "WorldDef.h"
 
@@ -1152,6 +1153,30 @@ zlevel_topmost:
 							fZWrite = TRUE;
 						}
 
+						{
+						bool const soldierLayer = uiRowFlags == TILES_DYNAMIC_MERCS ||
+							uiRowFlags == TILES_DYNAMIC_HIGHMERCS || uiRowFlags == TILES_DYNAMIC_STRUCT_MERCS;
+						auto const equipment = soldierLayer && pNode->pSoldier ?
+							GetVisualEquipmentAppearance(*pNode->pSoldier, usImageIndex) : VisualEquipmentAppearance{};
+						int const equipmentX = sXPos, equipmentY = sYPos;
+						if (!equipment.layers.empty() && (uiFlags & TILES_DIRTY) && !(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC))
+						{
+							auto const& first = *equipment.layers.front().frame;
+							int left = first.offsetX, top = first.offsetY;
+							int right = left + first.width, bottom = top + first.height;
+							for (auto const& layer : equipment.layers)
+							{
+								auto const& frame = *layer.frame;
+								left = std::min(left, frame.offsetX); top = std::min(top, frame.offsetY);
+								right = std::max(right, frame.offsetX + frame.width); bottom = std::max(bottom, frame.offsetY + frame.height);
+							}
+							int const y = equipmentY + top;
+							int const height = std::min(bottom - top, std::max(0, gsVIEWPORT_WINDOW_END_Y - y));
+							RegisterBackgroundRect(uiDirtyFlags, equipmentX + left, y, right - left, height);
+							if (fSaveZ)
+								RegisterBackgroundRect(uiDirtyFlags | BGND_FLAG_SAVE_Z, equipmentX + left, y, right - left, height);
+						}
+
 						// RENDER
 						if (uiLevelNodeFlags & LEVELNODE_WIREFRAME &&
 								!gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME])
@@ -1262,7 +1287,9 @@ zlevel_topmost:
 								}
 							}
 						}
-						else
+						// Replacement sprites own every merc drawing path, including
+						// prone/multi-tile drawing. Never draw the original underneath.
+						else if (!equipment.replaceBase)
 						{
 							if (fMultiTransShadowZBlitter)
 							{
@@ -1541,6 +1568,23 @@ zlevel_topmost:
 							}
 						}
 
+						if (!equipment.layers.empty() && !(uiFlags & TILES_DIRTY))
+						{
+							auto const composite = ComposeVisualEquipment(equipment, *pNode->pSoldier, pShadeTable);
+							DrawVisualEquipment(composite.frame, pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+								equipmentX, equipmentY, gClippingRect, composite.colors.data(), fZBlitter, fZWrite,
+								fObscuredBlitter, fPixelate, true, true);
+							if (uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE)
+							{
+								SGPVSurface::Lock saved(guiSAVEBUFFER);
+								DrawVisualEquipment(composite.frame, saved.Buffer<UINT16>(), saved.Pitch(), nullptr, sZLevel,
+									equipmentX, equipmentY, gClippingRect, composite.colors.data(), false, false, false, false, false, true);
+							}
+						}
+						if (equipment.replaceBase && !(uiFlags & TILES_DIRTY))
+							pNode->uiFlags &= ~LEVELNODE_UPDATESAVEBUFFERONCE;
+
+						}
 next_prev_node:
 						if (RenderingFX.fLinkedListDirection)
 						{
@@ -1597,6 +1641,17 @@ next_tile:
 	if (uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE) EndCurInteractiveTileCheck();
 }
 }; // class RenderTiles
+
+#ifdef WITH_UNITTESTS
+void RenderMultiTileMercForTesting(INT16 tileX, INT16 tileY)
+{
+	auto const oldUsed = uiLayerUsedFlags, oldAdditive = uiAdditiveLayerUsedFlags;
+	uiLayerUsedFlags = TILES_LAYER_ALL;
+	RenderTiles(tileX, tileY, 0, 0, 1, 1)(TILES_NONE, RENDER_DYNAMIC_STRUCT_MERCS);
+	uiLayerUsedFlags = oldUsed;
+	uiAdditiveLayerUsedFlags = oldAdditive;
+}
+#endif
 
 
 // memcpy's the background to the new scroll position, and renders the missing strip

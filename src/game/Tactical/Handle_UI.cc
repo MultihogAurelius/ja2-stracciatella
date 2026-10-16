@@ -3,6 +3,7 @@
 #include "ItemModel.h"
 #include "Items.h"
 #include "Merc_Hiring.h"
+#include "Merc_Acknowledgement.h"
 #include "NPC.h"
 #include "Real_Time_Input.h"
 #include "Turn_Based_Input.h"
@@ -1632,6 +1633,7 @@ static ScreenID UIHandleCMoveMerc(UI_EVENT* pUIEvent)
 
 		if ( fAllMove )
 		{
+			std::vector<SOLDIERTYPE*> acknowledgements;
 			gfGetNewPathThroughPeople = TRUE;
 
 			// Loop through all mercs and make go!
@@ -1674,7 +1676,7 @@ static ScreenID UIHandleCMoveMerc(UI_EVENT* pUIEvent)
 					//else
 					if ( EVENT_InternalGetNewSoldierPath( pSoldier, usMapPos, pSoldier->usUIMovementMode, TRUE, FALSE ) )
 					{
-						InternalDoMercBattleSound( pSoldier, BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
+						acknowledgements.push_back(pSoldier);
 					}
 					else
 					{
@@ -1686,6 +1688,7 @@ static ScreenID UIHandleCMoveMerc(UI_EVENT* pUIEvent)
 				}
 			}
 			gfGetNewPathThroughPeople = FALSE;
+			DoMercGroupAcknowledgement(acknowledgements, BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME);
 
 			// RESET MOVE FAST FLAG
 			SetConfirmMovementModeCursor(sel, TRUE);
@@ -4153,6 +4156,7 @@ void EndMultiSoldierSelection(BOOLEAN acknowledge)
 	// loop through all guys who are 'multi-selected' and check if our currently
 	// selected guy is among them - if not, change to a guy who is
 	SOLDIERTYPE*             first = NULL;
+	std::vector<SOLDIERTYPE*> acknowledgements;
 	const SOLDIERTYPE* const sel   = GetSelectedMan();
 	FOR_EACH_IN_TEAM(s, OUR_TEAM)
 	{
@@ -4166,8 +4170,7 @@ void EndMultiSoldierSelection(BOOLEAN acknowledge)
 		if (s == sel || first == NULL)
 			first = s;
 
-		if (acknowledge)
-			InternalDoMercBattleSound(s, BATTLE_SOUND_ATTN1, BATTLE_SND_LOWER_VOLUME);
+		acknowledgements.push_back(s);
 
 		if (s->fMercAsleep)
 			PutMercInAwakeState(s);
@@ -4176,8 +4179,10 @@ void EndMultiSoldierSelection(BOOLEAN acknowledge)
 	// If here, select the first guy...
 	if (first != NULL && first != sel)
 	{
-		SelectSoldier(first, SELSOLDIER_ACKNOWLEDGE | SELSOLDIER_FORCE_RESELECT);
+		SelectSoldier(first, SELSOLDIER_FORCE_RESELECT);
 	}
+	if (acknowledge)
+		DoMercGroupAcknowledgement(acknowledgements, BATTLE_SOUND_ATTN1, BATTLE_SND_LOWER_VOLUME);
 }
 
 
@@ -4218,6 +4223,7 @@ void EndRubberBanding(BOOLEAN fCancel)
 
 static BOOLEAN HandleMultiSelectionMove(INT16 sDestGridNo)
 {
+	std::vector<SOLDIERTYPE*> acknowledgements;
 	BOOLEAN fAtLeastOneMultiSelect = FALSE;
 	BOOLEAN fMoveFast = FALSE;
 
@@ -4272,7 +4278,7 @@ static BOOLEAN HandleMultiSelectionMove(INT16 sDestGridNo)
 
 				if ( EVENT_InternalGetNewSoldierPath( pSoldier, sDestGridNo, pSoldier->usUIMovementMode , TRUE, pSoldier->fNoAPToFinishMove ) )
 				{
-					InternalDoMercBattleSound( pSoldier, BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
+					acknowledgements.push_back(pSoldier);
 				}
 				else
 				{
@@ -4284,6 +4290,7 @@ static BOOLEAN HandleMultiSelectionMove(INT16 sDestGridNo)
 		}
 	}
 	gfGetNewPathThroughPeople = FALSE;
+	DoMercGroupAcknowledgement(acknowledgements, BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME);
 
 	return( fAtLeastOneMultiSelect );
 }

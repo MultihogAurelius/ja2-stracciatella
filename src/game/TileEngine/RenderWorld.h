@@ -131,6 +131,11 @@ void InvalidateWorldRedundency(void);
 
 void SetRenderCenter(INT16 sNewX, INT16 sNewY);
 
+#ifdef WITH_UNITTESTS
+// Exercise the actual multi-tile merc dispatcher without loading a map.
+void RenderMultiTileMercForTesting(INT16 tileX, INT16 tileY);
+#endif
+
 #if defined _DEBUG
 void RenderFOVDebug(void);
 void RenderCoverDebug(void);

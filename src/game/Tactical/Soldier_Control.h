@@ -937,6 +937,9 @@ void ReviveSoldier( SOLDIERTYPE *pSoldier );
 
 // Palette functions for soldiers
 void  CreateSoldierPalettes(SOLDIERTYPE&);
+// Shared visual-only palette construction for soldiers and equipment layers.
+void CreateSoldierShadeTables(UINT16* (&shades)[NUM_SOLDIER_SHADES], UINT16*& effect,
+	UINT16* (&glows)[20], SGPPaletteEntry const* palette);
 std::optional<UINT8> GetPaletteRepIndexFromID(const ST::string& pal_rep);
 void SetPaletteReplacement(SGPPaletteEntry* p8BPPPalette, const ST::string& aPalRep);
 void  LoadPaletteData(void);

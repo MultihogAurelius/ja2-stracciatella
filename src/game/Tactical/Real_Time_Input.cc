@@ -533,6 +533,7 @@ static void QueryRTLeftButton(UIEventKind* const puiNewEvent)
 																				}
 																				else
 																				{
+																					bool const acknowledge = !(pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED);
 																					if ( pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED )
 																					{
 																						pSoldier->uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
@@ -540,9 +541,6 @@ static void QueryRTLeftButton(UIEventKind* const puiNewEvent)
 																					else
 																					{
 																						pSoldier->uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
-																						// Say Confimation...
-																						if( !gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] )
-																							DoMercBattleSound( pSoldier, BATTLE_SOUND_ATTN1 );
 
 																						// OK, if we have a selected guy.. make him part too....
 																						if (sel != NULL)
@@ -554,7 +552,7 @@ static void QueryRTLeftButton(UIEventKind* const puiNewEvent)
 																					gfIgnoreOnSelectedGuy = TRUE;
 
 
-																					EndMultiSoldierSelection( FALSE );
+																					EndMultiSoldierSelection( acknowledge );
 																				}
 																			}
 																		}
@@ -567,6 +565,7 @@ static void QueryRTLeftButton(UIEventKind* const puiNewEvent)
 																			}
 																			else
 																			{
+																				bool const acknowledge = !(pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED);
 																				if ( pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED )
 																				{
 																					pSoldier->uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
@@ -574,9 +573,6 @@ static void QueryRTLeftButton(UIEventKind* const puiNewEvent)
 																				else
 																				{
 																					pSoldier->uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
-																					// Say Confimation...
-																					if( !gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] )
-																						DoMercBattleSound( pSoldier, BATTLE_SOUND_ATTN1 );
 																				}
 
 																				// OK, if we have a selected guy.. make him part too....
@@ -587,7 +583,7 @@ static void QueryRTLeftButton(UIEventKind* const puiNewEvent)
 
 																				gfIgnoreOnSelectedGuy = TRUE;
 
-																				EndMultiSoldierSelection( FALSE );
+																				EndMultiSoldierSelection( acknowledge );
 																			}
 																		}
 																	}

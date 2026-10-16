@@ -1,4 +1,5 @@
 #include "Soldier_Control.h"
+#include "Merc_Acknowledgement.h"
 #include "AI.h"
 #include "Animation_Cache.h"
 #include "Animation_Control.h"
@@ -4670,67 +4671,74 @@ void CreateSoldierPalettes(SOLDIERTYPE& s)
 	}
 
 
+	CreateSoldierShadeTables(s.pShades, s.effect_shade, s.pGlowShades, pal);
+}
+
+
+void CreateSoldierShadeTables(UINT16* (&shades)[NUM_SOLDIER_SHADES], UINT16*& effect,
+	UINT16* (&glows)[20], SGPPaletteEntry const* pal)
+{
 	for (INT32 i = 0; i < NUM_SOLDIER_SHADES; ++i)
 	{
-		if (s.pShades[i])
+		if (shades[i])
 		{
-			delete[] s.pShades[i];
-			s.pShades[i] = 0;
+			delete[] shades[i];
+			shades[i] = 0;
 		}
 	}
 
-	if (s.effect_shade)
+	if (effect)
 	{
-		delete[] s.effect_shade;
-		s.effect_shade = 0;
+		delete[] effect;
+		effect = 0;
 	}
 
 	for (INT32 i = 0; i < 20; ++i)
 	{
-		if (s.pGlowShades[i])
+		if (glows[i])
 		{
-			delete[] s.pGlowShades[i];
-			s.pGlowShades[i] = 0;
+			delete[] glows[i];
+			glows[i] = 0;
 		}
 	}
 
 
-	CreateBiasedShadedPalettes(s.pShades, pal);
+	CreateBiasedShadedPalettes(shades, pal);
 
-	s.effect_shade = Create16BPPPaletteShaded(pal, 100, 100, 100, TRUE);
+	effect = Create16BPPPaletteShaded(pal, 100, 100, 100, TRUE);
 
 	// Build shades for glowing visible bad guy
 
 	// First do visible guy
-	s.pGlowShades[0] = Create16BPPPaletteShaded(pal, 255, 255, 255, FALSE);
+	glows[0] = Create16BPPPaletteShaded(pal, 255, 255, 255, FALSE);
 	for (INT32 i = 1; i < 10; ++i)
 	{
-		s.pGlowShades[i] = CreateEnemyGlow16BPPPalette(pal, gRedGlowR[i], 0);
+		glows[i] = CreateEnemyGlow16BPPPalette(pal, gRedGlowR[i], 0);
 	}
 
 	// Now for gray guy...
-	s.pGlowShades[10] = Create16BPPPaletteShaded(pal, 100, 100, 100, TRUE);
+	glows[10] = Create16BPPPaletteShaded(pal, 100, 100, 100, TRUE);
 	for (INT32 i = 11; i < 19; ++i)
 	{
-		s.pGlowShades[i] = CreateEnemyGreyGlow16BPPPalette(pal, gRedGlowR[i], 0);
+		glows[i] = CreateEnemyGreyGlow16BPPPalette(pal, gRedGlowR[i], 0);
 	}
-	s.pGlowShades[19] = CreateEnemyGreyGlow16BPPPalette(pal, gRedGlowR[18], 0);
+	glows[19] = CreateEnemyGreyGlow16BPPPalette(pal, gRedGlowR[18], 0);
 
 	// ATE: OK, piggyback on the shades we are not using for 2 colored lighting....
 	// ORANGE, VISIBLE GUY
-	s.pShades[20] = Create16BPPPaletteShaded(pal, 255, 255, 255, FALSE);
+	shades[20] = Create16BPPPaletteShaded(pal, 255, 255, 255, FALSE);
 	for (INT32 i = 21; i < 30; ++i)
 	{
-		s.pShades[i] = CreateEnemyGlow16BPPPalette(pal, gOrangeGlowR[i - 20], gOrangeGlowG[i - 20]);
+		shades[i] = CreateEnemyGlow16BPPPalette(pal, gOrangeGlowR[i - 20], gOrangeGlowG[i - 20]);
 	}
 
 	// ORANGE, GREY GUY
-	s.pShades[30] = Create16BPPPaletteShaded(pal, 100, 100, 100, TRUE);
+	shades[30] = Create16BPPPaletteShaded(pal, 100, 100, 100, TRUE);
 	for (INT32 i = 31; i < 39; ++i)
 	{
-		s.pShades[i] = CreateEnemyGreyGlow16BPPPalette(pal, gOrangeGlowR[i - 20], gOrangeGlowG[i - 20]);
+		shades[i] = CreateEnemyGreyGlow16BPPPalette(pal, gOrangeGlowR[i - 20], gOrangeGlowG[i - 20]);
 	}
-	s.pShades[39] = CreateEnemyGreyGlow16BPPPalette(pal, gOrangeGlowR[18], gOrangeGlowG[18]);
+	shades[39] = CreateEnemyGreyGlow16BPPPalette(pal, gOrangeGlowR[18], gOrangeGlowG[18]);
 }
 
 
@@ -5862,6 +5870,10 @@ BOOLEAN InternalDoMercBattleSound(SOLDIERTYPE* s, BattleSound battle_snd_id, boo
 
 	CHECKF (battle_snd_id < NUM_MERC_BATTLE_SOUNDS);
 
+	if (IsMercAcknowledgement(battle_snd_id) &&
+		!ShouldPlayMercBattleSound(battle_snd_id, gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS],
+			gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS] ? 1 : Random(2))) return TRUE;
+
 	if (s->uiStatusFlags & SOLDIER_VEHICLE)
 	{
 		// Pick a passenger from vehicle....
@@ -6032,9 +6044,8 @@ no_sub:
 	}
 file_exists:;
 
-	// ATE: Reduce volume for OK sounds...
-	// (Only for all-moves or multi-selection cases)
-	UINT32 const base_volume = lowerVolume == BATTLE_SND_LOWER_VOLUME ? MIDVOLUME : HIGHVOLUME;
+	// Keep individual and group acknowledgements at the same quieter volume.
+	UINT32 const base_volume = lowerVolume || IsMercAcknowledgement(battle_snd_id) ? MIDVOLUME : HIGHVOLUME;
 	UINT32       volume      = CalculateSpeechVolume(base_volume);
 
 	// If we are an enemy.....reduce due to volume

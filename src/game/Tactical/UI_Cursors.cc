@@ -988,6 +988,21 @@ void HandleLeftClickCursor( SOLDIERTYPE *pSoldier )
 	{
 		case TARGETCURS:
 			pSoldier->bShownAimTime = REFINE_AIM_1;
+			if (!pSoldier->bDoBurst)
+			{
+				// Start at the highest aim level affordable for this target, including
+				// the AP cost of turning and raising the weapon.
+				GridNo const target = gUIFullTarget ? gUIFullTarget->sGridNo : sGridNo;
+				for (INT8 aim = REFINE_AIM_5; aim > REFINE_AIM_1; aim -= 2)
+				{
+					INT16 const ap_cost = CalcTotalAPsToAttack(pSoldier, target, TRUE, aim / 2);
+					if (EnoughPoints(pSoldier, ap_cost, 0, FALSE))
+					{
+						pSoldier->bShownAimTime = aim;
+						break;
+					}
+				}
+			}
 
 			// Reset counter
 			RESETCOUNTER( TARGETREFINE );

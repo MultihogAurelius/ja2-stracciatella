@@ -22,6 +22,7 @@ void         InvalidateRegion(INT32 iLeft, INT32 iTop, INT32 iRight, INT32 iBott
 void         InvalidateScreen(void);
 
 void VideoSetBrightness(float brightness);
+bool VideoHandleInterfaceScaleKey(SDL_Keycode key, SDL_Keymod modifiers);
 
 /* Toggle between fullscreen and window mode after initialising the video
  * manager */

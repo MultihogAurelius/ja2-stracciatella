@@ -13,6 +13,14 @@
 #include "Video.h"
 #include "UILayout.h"
 #include "Icon.h"
+#include "ContentManager.h"
+#include "GameInstance.h"
+#include "Input.h"
+#include "Interface_Scaling.h"
+#include "JAScreens.h"
+#include "Json.h"
+#include "MessageBoxScreen.h"
+#include "SGPFile.h"
 #include <algorithm>
 #include <chrono>
 #include <stdexcept>
@@ -60,6 +68,44 @@ static SDL_Texture* ScaledScreenTexture;
 static Uint32       g_window_flags = 0;
 static VideoScaleQuality ScaleQuality = VideoScaleQuality::LINEAR;
 static std::chrono::steady_clock::duration TimeBetweenRefreshScreens;
+
+static int InterfaceScale = 3;
+static bool InterfaceScaleLoaded;
+static ScreenID LastPresentationScreen = ERROR_SCREEN;
+
+static ScreenID InterfaceScreen()
+{
+	if (guiCurrentScreen == MSG_BOX_SCREEN) return gMsgBox.uiExitScreen;
+	if (guiCurrentScreen == FADE_SCREEN) return LastPresentationScreen;
+	return guiCurrentScreen;
+}
+
+static void LoadInterfaceScale()
+{
+	if (InterfaceScaleLoaded || !GCM) return;
+	InterfaceScaleLoaded = true;
+	try
+	{
+		constexpr auto filename = "interface-scaling.json";
+		if (!GCM->doesGameResExists(filename)) return;
+		AutoSGPFile file(GCM->openGameResForReading(filename));
+		InterfaceScale = std::clamp(static_cast<int>(JsonValue::deserialize(file->readStringToEnd()).toObject().GetUInt("scale")),1,3);
+	}
+	catch (std::exception const& error)
+	{
+		SLOGW("Using automatic interface scaling: {}",error.what());
+	}
+}
+
+bool VideoHandleInterfaceScaleKey(SDL_Keycode key, SDL_Keymod modifiers)
+{
+	if (!(modifiers & KMOD_CTRL) || !(modifiers & KMOD_ALT) || key < SDLK_1 || key > SDLK_3) return false;
+	auto const screen = InterfaceScreen();
+	if (screen != MAP_SCREEN && screen != LAPTOP_SCREEN) return false;
+	LoadInterfaceScale();
+	InterfaceScale = static_cast<int>(key - SDLK_0);
+	return true;
+}
 
 static void DeletePrimaryVideoSurfaces(void);
 
@@ -131,6 +177,7 @@ void InitializeVideoManager(const VideoScaleQuality quality,
 
 	GameRenderer = SDL_CreateRenderer(g_game_window, -1, 0);
 	SDL_RenderSetLogicalSize(GameRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+	SetInterfacePresentation(MakeInterfacePresentation(SCREEN_WIDTH,SCREEN_HEIGHT,GAME_SCREEN,1));
 
 	SurfaceUniquePtr windowIcon(SDL_CreateRGBSurfaceWithFormatFrom(
 			(void*)gWindowIconData.pixel_data,
@@ -196,7 +243,7 @@ void InitializeVideoManager(const VideoScaleQuality quality,
 	}
 
 	ScreenTexture = SDL_CreateTexture(GameRenderer,
-					SDL_PIXELFORMAT_RGB565,
+					SDL_PIXELFORMAT_ARGB8888,
 					SDL_TEXTUREACCESS_STREAMING,
 					SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -458,6 +505,19 @@ void RefreshScreen(void)
 {
 	// Not initialised yet or already shut down?
 	if (!ScreenTexture) return;
+	LoadInterfaceScale();
+	auto const screen = InterfaceScreen();
+	auto const presentation = MakeInterfacePresentation(SCREEN_WIDTH,SCREEN_HEIGHT,screen,InterfaceScale);
+	if (!SameInterfacePresentation(presentation,GetInterfacePresentation()))
+	{
+		// Preserve the pointer's displayed position when entering/leaving a
+		// scaled screen. Incoming events will now use the same new transform.
+		auto const mouse = GetMousePos();
+		auto const displayed = InterfaceToDisplay(GetInterfacePresentation(),{mouse.iX,mouse.iY});
+		SetInterfacePresentation(presentation);
+		SetSafeMousePosition(displayed.x,displayed.y);
+	}
+	LastPresentationScreen = screen;
 
 	const BOOLEAN scrolling = (gsScrollXIncrement != 0 || gsScrollYIncrement != 0);
 
@@ -527,19 +587,55 @@ void RefreshScreen(void)
 	SDL_Rect dst;
 	dst.x = cursorPos.iX - gsMouseCursorXOffset;
 	dst.y = cursorPos.iY - gsMouseCursorYOffset;
-	SDL_BlitSurface(MouseCursor, &src, ScreenBuffer, &dst);
+	dst.w = src.w;
+	dst.h = src.h;
+	if (presentation.scale == 1) SDL_BlitSurface(MouseCursor, &src, ScreenBuffer, &dst);
+	else
+	{
+		// Cursor is drawn after scaling, including over the black margins.
+		SDL_Rect const bounds{0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
+		SDL_Rect clipped;
+		dst = SDL_IntersectRect(&dst,&bounds,&clipped) ? clipped : SDL_Rect{0,0,0,0};
+	}
 	ScreenTextureUpdateRect += dst;
 	MouseBackground = dst;
 
 	uint8_t const * SrcPixels = static_cast<uint8_t *>(ScreenBuffer->pixels)
 		+ ScreenTextureUpdateRect.y * ScreenBuffer->pitch
 		+ ScreenTextureUpdateRect.x * ScreenBuffer->format->BytesPerPixel;
-	SDL_UpdateTexture(ScreenTexture, &ScreenTextureUpdateRect,
-	                  SrcPixels, ScreenBuffer->pitch);
+	// SDL 2.0.20's OpenGL RGB565 texture uses an internal conversion texture;
+	// changing its scale mode dereferences a null backend pointer. Upload to a
+	// native 32-bit texture instead, leaving the game's RGB565 surfaces intact.
+	if (ScreenTextureUpdateRect.w > 0 && ScreenTextureUpdateRect.h > 0)
+	{
+		void* pixels;
+		int pitch;
+		if (SDL_LockTexture(ScreenTexture,&ScreenTextureUpdateRect,&pixels,&pitch) != 0)
+			throw std::runtime_error(SDL_GetError());
+		int const result = SDL_ConvertPixels(ScreenTextureUpdateRect.w,ScreenTextureUpdateRect.h,
+			SDL_PIXELFORMAT_RGB565,SrcPixels,ScreenBuffer->pitch,
+			SDL_PIXELFORMAT_ARGB8888,pixels,pitch);
+		SDL_UnlockTexture(ScreenTexture);
+		if (result != 0) throw std::runtime_error(SDL_GetError());
+	}
 
 	SDL_RenderClear(GameRenderer);
 
-	if (ScaleQuality == VideoScaleQuality::NEAR_PERFECT) {
+	SDL_Texture* scaledCursor = nullptr;
+	if (presentation.scale > 1)
+	{
+		RenderScaledInterface(GameRenderer,ScreenTexture,presentation);
+		scaledCursor = SDL_CreateTextureFromSurface(GameRenderer,MouseCursor);
+		if (scaledCursor)
+		{
+			SDL_SetTextureScaleMode(scaledCursor,SDL_ScaleModeNearest);
+			auto const point = InterfaceToDisplay(presentation,{cursorPos.iX - gsMouseCursorXOffset,cursorPos.iY - gsMouseCursorYOffset});
+			SDL_Rect const cursorDest{point.x,point.y,src.w * presentation.scale,src.h * presentation.scale};
+			SDL_RenderCopy(GameRenderer,scaledCursor,&src,&cursorDest);
+		}
+	}
+	else if (ScaleQuality == VideoScaleQuality::NEAR_PERFECT) {
+		SDL_SetTextureScaleMode(ScreenTexture,SDL_ScaleModeNearest);
 		SDL_SetRenderTarget(GameRenderer, ScaledScreenTexture);
 		SDL_RenderCopy(GameRenderer, ScreenTexture, nullptr, nullptr);
 
@@ -547,10 +643,12 @@ void RefreshScreen(void)
 		SDL_RenderCopy(GameRenderer, ScaledScreenTexture, nullptr, nullptr);
 	}
 	else {
+		SDL_SetTextureScaleMode(ScreenTexture,ScaleQuality == VideoScaleQuality::PERFECT ? SDL_ScaleModeNearest : SDL_ScaleModeLinear);
 		SDL_RenderCopy(GameRenderer, ScreenTexture, NULL, NULL);
 	}
 
 	FPS::RenderPresentPtr(GameRenderer);
+	if (scaledCursor) SDL_DestroyTexture(scaledCursor);
 
 	gfForceFullScreenRefresh = FALSE;
 	guiDirtyRegionCount = 0;

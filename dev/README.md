@@ -1,0 +1,173 @@
+# Custom JA2 development
+
+## Git history and local assets
+
+The `custom/vanilla-enhancements` branch starts at upstream tag `v0.22.1`.
+`upstream` points to the original Stracciatella repository; `origin` points to
+the personal GitHub fork. Existing customizations were imported as a snapshot;
+their original editing sequence is not reconstructed history.
+
+Source, configuration, visual mappings, import scripts and tests are tracked.
+`_bin`, Python caches and imported 1.13 sprite/palette binaries are ignored.
+The original JA2 game data and save games remain outside this repository.
+On a fresh checkout, recreate the cosmetic assets before building:
+
+```powershell
+python dev/import_visual_equipment.py "F:\JA2 1.13 game files"
+```
+
+Use `git status` and `git diff` to review changes before each commit. Keep new
+features and fixes in separate commits so they can be compared or reverted.
+
+## Current change
+
+Vanilla worn equipment and held weapons use JA2 1.13 LOBOT artwork on regular/
+stocky male, large male and female tactical sprites. Equipment changes appear
+immediately. Item statistics, AP costs, combat rules, inventory and saves are
+unchanged by this visual feature.
+
+Supported worn items are Steel/Kevlar/Spectra helmets; Flak/Kevlar/Spectra/
+Guardian vests; Kevlar/Spectra leggings; leather jacket sleeves; night and UV
+goggles; sunglasses; gas masks; and extended ears. Treated armour variants share
+their base family's appearance. Leather sleeves retain the merc's clothing
+colour, as in LOBOT. T-shirts retain the merc shirt artwork. Ceramic plates are
+inside the vest and have no separate external layer. Creature hides are not
+human wearable equipment.
+
+Held weapons use specific sheets where provided by LOBOT, with its generic
+weapon-family sheets otherwise. This includes both hands when dual wielding.
+To remove the original generic gun cleanly, the renderer replaces the full
+coloured body with compatible LOBOT body parts before adding gear and weapons.
+If body parts or weapon frames are missing/incompatible, it keeps the original
+sprite and applies only compatible worn overlays. This leaves vanilla animation
+timing intact. Some rare animations therefore have no new equipment visual.
+
+The imported artwork and mappings are in `assets/externalized/visual-equipment`.
+Set `enabled` to `false` in `vanilla-gear.json`, rebuild and restart to disable it.
+Set `held_weapons` to `false` for worn overlays on original vanilla sprites only.
+The build copies this data into the playable directory. No 1.13 installation is
+needed at runtime. `dev/import_visual_equipment.py` reproduces the import from
+the 1.13 game folder; it imports artwork, palettes and visual mappings only.
+`coverage.json` records the vanilla item groups. The old Steel Helmet prototype
+files are superseded by this manifest. Decoded sprite sheets use a 128 MiB cache;
+active frames remain valid during eviction.
+
+## Maximum default aim
+
+In turn-based combat, selecting a ranged target starts at the highest affordable
+aim level (up to the vanilla maximum of four extra aiming AP). The calculation
+includes turning and readying the weapon. If there are insufficient AP for any
+extra aim, the original minimum is used. Burst fire and real-time firing retain
+their existing behavior. Throwing knives also use maximum affordable aim.
+
+The existing right-click aim cycle still works: at maximum, right-click twice
+to return to minimum, then add aim normally. No save format was changed.
+
+## Quieter acknowledgements
+
+Rubber-band selection, Alt-click multi-selection, multi-selection movement and
+all-squad movement request one reply from a randomly chosen eligible merc.
+Movement replies come only from mercs who received a valid path. The change
+also removes the extra selection reply when the active merc changes within a
+group. Group size does not increase the chance of a reply.
+
+Selection/attention and OK acknowledgements (including low-morale variants)
+now pass a 50% playback gate. Existing cooldowns and dialogue rules still apply.
+Individual and group acknowledgement voices both use the quieter volume level.
+The mute-confirmations option takes precedence. Hits, deaths, enemy alerts,
+locked-door warnings and other battle sounds retain their existing behavior.
+No orders, paths, AP costs or combat rules are changed.
+
+To playtest, select several mercs with a selection box or Alt-click, then issue
+several movement orders. Expect at most one reply per action, with roughly half
+the actions silent; the speaker should vary. Try single-merc orders too. Check
+mute confirmations, and try a group with a blocked path: a merc unable to move
+should not provide the movement acknowledgement.
+
+## Map and laptop scaling
+
+The strategic map and laptop enlarge their centered 640x480 interface using
+nearest-neighbour scaling. Tactical rendering keeps the full native resolution.
+Mouse motion, clicks, touch positions, cursor warps and the software cursor use
+the same coordinate transform. Confirmation dialogs inherit the parent scale.
+
+The default selects the largest whole-number scale that fits, up to 3x. At
+1920x1080 this is 2x (a 1280x960 interface). A complete 3x interface is 1920x1440,
+so it requires at least that much internal resolution. Oversized requests fall
+back to the largest fitting scale; controls are never cropped to force 3x.
+
+While on the map or laptop, Ctrl+Alt+1/2/3 requests 1x/2x/3x for the current
+session. These shortcuts do not affect tactical mode. The startup preference is
+`scale` in `assets/externalized/interface-scaling.json`; build after editing it
+to copy it into the playable directory. No source rebuild is required for that
+data-only setting.
+
+Playtest opening/closing the laptop and strategic map, selecting sectors and
+mercs, entering a laptop site and dismissing a confirmation dialog. Hover/click
+targets should follow the enlarged graphics, including after changing scale.
+
+## Build and play
+
+- Double-click `Build Custom JA2.cmd` in the project root to rebuild.
+- Double-click `Play Custom JA2.cmd` to run `_bin/build/play/ja2.exe` against the
+  original assets at `F:\GOG Games\Jagged Alliance 2`.
+- The custom launcher uses a 1920x1080 window through Stracciatella's native
+  `-window -res 1920x1080` options. Changing these options requires no rebuild.
+- The launcher uses the normal Stracciatella preferences and saves directory.
+  Use a separate save slot when testing the custom build.
+- The original GOG executable and assets are not replaced.
+
+`dev/build.ps1` configures CMake/Ninja with the installed Visual Studio C++
+14.44 tools and a project-local Rust 1.75.0 installation. Downloaded dependencies,
+compiler products, and the original UI_Cursors.cc backup live under `_bin`.
+`dev/patch.cmd` applies the source project's bundled dependency patch using
+native Git, avoiding an MSYS runtime requirement on Windows.
+
+## Verify
+
+After building, double-click `Test Visual Gear.cmd` to run the rendering, aim,
+acknowledgement and interface-scaling regressions and generate `_bin/gear-tests.xml` and
+`_bin/vanilla-gear-preview.bmp`.
+This validates animation frames and a simulated wall/viewport at 1920x1080;
+it does not drive an in-game save. It also checks scanline padding for clipping
+overruns and compares foreground depth with ordinary/obscured rendering.
+The prone regression additionally runs the actual world renderer's multi-tile
+merc path for every prone frame/direction and compares the framebuffer with the
+replacement composite. This catches the original body being drawn underneath.
+Scaling checks also run SDL's real video-refresh path with a headless software
+renderer, checking the enlarged interface, cursor in black margins, parent
+dialogs, scale shortcuts and restoration of the full tactical canvas.
+Run `dev\test-visual-equipment.ps1 -OpenGL` to repeat these checks using the
+desktop OpenGL renderer. This also covers the SDL 2.0.20 startup regression:
+the display texture uses ARGB8888 with RGB565 uploads converted on lock, since
+changing the filter on an OpenGL RGB565 conversion texture crashes that SDL version.
+
+From PowerShell in the project folder:
+
+```powershell
+$env:GTEST_FILTER = 'VisualEquipment.*:VanillaGearAssets.*:DefaultTargetAimTest.*:MercAcknowledgement.*:InterfaceScaling.*'
+$env:JA2_VISUAL_TEST_GAMEDIR = 'F:\GOG Games\Jagged Alliance 2'
+Push-Location .\_bin\build\play
+try { .\ja2.exe -gamedir $env:JA2_VISUAL_TEST_GAMEDIR -unittests }
+finally { Pop-Location }
+Remove-Item Env:GTEST_FILTER
+Remove-Item Env:JA2_VISUAL_TEST_GAMEDIR
+```
+
+For an optional rendered before/after contact sheet, set
+`JA2_VISUAL_TEST_OUTPUT` to an absolute BMP filename before running the tests.
+Rows are regular male, large male and female, each standing, crouched and prone
+with a Desert Eagle, then the same stances with a Desert Eagle/Beretta pair.
+Each direction has an unarmoured/armoured pair using the new weapon renderer.
+
+For an in-game check, load an existing save and try a complete armour set plus
+two compatible face items. Rotate, walk, run, crouch, go prone and aim. Remove
+items and swap guns, including mixed dual handguns. Carrying gear in a pocket
+must not wear it. Check movement past walls/mercs, night lighting, selection
+effects, and scrolling for leftover pixels. Use a separate save slot for testing.
+
+In a turn-based fight, select a merc with sufficient AP and aim at a target.
+Check that aim begins at maximum and that its displayed AP cost includes aiming.
+Repeat after spending most AP: aim should begin at the best remaining affordable
+level. Right-click through the existing cycle to choose a lower level. Check
+another target and a second shot, and confirm that burst fire works normally.

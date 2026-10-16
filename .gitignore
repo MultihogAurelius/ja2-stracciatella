@@ -13,3 +13,11 @@ TAGS
 .zed
 /compile_commands.json
 /*/CMakeUserPresets.json
+
+# Local Python caches and generated JA2 1.13 cosmetic artwork.
+__pycache__/
+*.py[cod]
+/assets/externalized/visual-equipment/sprites/
+/assets/externalized/visual-equipment/palettes/
+/assets/externalized/visual-equipment/steel-helmet/
+/assets/externalized/visual-equipment/steel-helmet-palette.stp
