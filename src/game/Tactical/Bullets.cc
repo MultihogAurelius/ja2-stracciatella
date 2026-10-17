@@ -5,6 +5,7 @@
 #include "WorldDef.h"
 #include "Overhead.h"
 #include "Bullets.h"
+#include "Bullet_Trail.h"
 #include "LOS.h"
 #include "WorldMan.h"
 #include "Random.h"
@@ -18,6 +19,13 @@
 
 
 static BULLET gBullets[NUM_BULLET_SLOTS];
+static BulletTrail gBulletTrails[NUM_BULLET_SLOTS];
+
+static BulletTrail& Trail(BULLET* b) { return gBulletTrails[b - gBullets]; }
+static BulletTrailPosition Position(BULLET const* b)
+{
+	return {FIXEDPT_TO_INT32(b->qCurrX),FIXEDPT_TO_INT32(b->qCurrY),FIXEDPT_TO_INT32(b->qCurrZ)};
+}
 UINT32  guiNumBullets = 0;
 
 
@@ -55,6 +63,7 @@ BULLET* CreateBullet(SOLDIERTYPE* const firer, const BOOLEAN fFake, const UINT16
 	BULLET* const b = GetFreeBullet();
 	if (b == NULL) return NULL;
 
+	Trail(b).Clear();
 	*b = BULLET{};
 	b->fAllocated = TRUE;
 	b->fLocated = FALSE;
@@ -124,6 +133,7 @@ void HandleBulletSpecialFlags(BULLET* pBullet)
 
 void RemoveBullet(BULLET* b)
 {
+	Trail(b).Clear();
 	// decrease soldier's bullet count
 
 	if (b->fReal)
@@ -184,7 +194,6 @@ void LocateBullet(BULLET* b)
 void UpdateBullets(void)
 {
 	UINT32    uiCount;
-	LEVELNODE *pNode;
 	BOOLEAN   fDeletedSome = FALSE;
 
 	for ( uiCount = 0; uiCount < guiNumBullets; uiCount++ )
@@ -204,19 +213,7 @@ void UpdateBullets(void)
 					continue;
 				}
 
-				//if ( !( gGameSettings.fOptions[ TOPTION_HIDE_BULLETS ] ) )
-				{
-					// ALRIGHTY, CHECK WHAT TYPE OF BULLET WE ARE
-
-					if (b->usFlags & (BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME))
-					{
-					}
-					else
-					{
-						RemoveStruct(b->sGridNo, BULLETTILE1);
-						RemoveStruct(b->sGridNo, BULLETTILE2);
-					}
-				}
+				auto const previous = Position(b);
 
 				MoveBullet(b);
 				if (b->fToDelete)
@@ -266,22 +263,11 @@ void UpdateBullets(void)
 					}
 					else
 					{
-						pNode = AddStructToTail(b->sGridNo, BULLETTILE1);
-						pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
-						pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
-						pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT );
-						pNode->sRelativeX = FIXEDPT_TO_INT32(b->qCurrX);
-						pNode->sRelativeY = FIXEDPT_TO_INT32(b->qCurrY);
-						pNode->sRelativeZ = CONVERT_HEIGHTUNITS_TO_PIXELS(FIXEDPT_TO_INT32(b->qCurrZ));
-
-						// Display shadow
-						pNode = AddStructToTail(b->sGridNo, BULLETTILE2);
-						pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
-						pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
-						pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT );
-						pNode->sRelativeX = FIXEDPT_TO_INT32(b->qCurrX);
-						pNode->sRelativeY = FIXEDPT_TO_INT32(b->qCurrY);
-						pNode->sRelativeZ = gpWorldLevelData[b->sGridNo].sHeight;
+						auto const current = Position(b);
+						// Keep the trail between timed physics updates rather than flashing
+						// back to a dot whenever MoveBullet has no movement to perform.
+						if (Trail(b).Empty() || previous.x != current.x || previous.y != current.y || previous.z != current.z)
+							Trail(b).Draw(previous,current);
 					}
 				}
 			}
@@ -397,6 +383,8 @@ void SaveBulletStructureToSaveGameFile(HWFILE const hFile)
 
 void LoadBulletStructureFromSavedGameFile(HWFILE const hFile)
 {
+	for (auto& trail : gBulletTrails) trail.Clear();
+
 	//make sure the bullets are not allocated
 	std::fill(std::begin(gBullets), std::end(gBullets), BULLET{});
 
@@ -421,10 +409,14 @@ void StopBullet(BULLET* b)
 {
 	b->usFlags |= BULLET_STOPPED;
 
-	RemoveStruct(b->sGridNo, BULLETTILE1);
-	RemoveStruct(b->sGridNo, BULLETTILE2);
+	Trail(b).Clear();
 }
 
+
+void ClearBulletTrails()
+{
+	for (auto& trail : gBulletTrails) trail.Clear();
+}
 
 void DeleteAllBullets(void)
 {

@@ -1,3 +1,4 @@
+#include "Bullets.h"
 #include "WorldDef.h"
 #include "Animated_ProgressBar.h"
 #include "Animation_Data.h"
@@ -2606,6 +2607,7 @@ void FreeLevelNodeList(LEVELNODE** const head)
 
 void TrashWorld(void)
 {
+	ClearBulletTrails();
 	if (!gfWorldLoaded) return;
 
 	TrashWorldItems();

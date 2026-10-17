@@ -52,6 +52,24 @@ the 1.13 game folder; it imports artwork, palettes and visual mappings only.
 files are superseded by this manifest. Decoded sprite sheets use a 128 MiB cache;
 active frames remain valid during eviction.
 
+## Visible bullet trails
+
+Ordinary gunfire and buckshot use the alternate bullet graphics approach from
+JA2 1.13 (`Tactical/Bullets.cpp`, afp's trail implementation): repeat the existing
+bullet sprite along its latest movement segment instead of displaying a single
+dot and ground shadow. No additional artwork import is required. Both sides use
+the effect; knives, rockets, flames and creature spit retain their own graphics.
+
+The trail is capped at 60 samples, follows projectile height, and uses ordinary
+world depth rendering. Each bullet owns its visual nodes, which are removed on
+movement, impact, stopping, loading or sector teardown. The trail persists between
+timed projectile updates. No accuracy, damage, ammunition, lighting, visibility,
+projectile speed or save-format rules are changed.
+
+Playtest single shots, bursts and buckshot in several directions, including
+rooftop shots and shots into cover. Check that streaks vanish after impacts and
+that crossing shots do not remove one another's visuals.
+
 ## Maximum default aim
 
 In turn-based combat, selecting a ranged target starts at the highest affordable

@@ -67,6 +67,7 @@ void    StopBullet(BULLET* b);
 void    UpdateBullets(void);
 
 void DeleteAllBullets(void);
+void ClearBulletTrails();
 
 void LocateBullet(BULLET* b);
 

@@ -9,6 +9,7 @@ set(LOCAL_JA2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Auto_Bandage.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Boxing.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Bullets.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Bullet_Trail.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Campaign.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Civ_Quotes.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Dialogue_Control.cc
@@ -85,6 +86,7 @@ if (WITH_UNITTESTS)
         ${LOCAL_JA2_SOURCES}
         ${CMAKE_CURRENT_SOURCE_DIR}/LoadSaveMercProfile_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/Merc_Acknowledgement_unittest.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/Bullet_Trail_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/UI_Cursors_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/Visual_Equipment_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/Weapons_unittest.cc
