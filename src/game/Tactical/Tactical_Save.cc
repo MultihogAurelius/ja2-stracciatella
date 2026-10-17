@@ -3411,4 +3411,65 @@ TEST(TacticalSave, asserts)
 	EXPECT_EQ(lengthof(g_encryption_array), static_cast<size_t>(BASE_NUMBER_OF_ROTATION_ARRAYS * 12));
 }
 
+#include "DefaultContentManager.h"
+#include "PreBattle_Interface.h"
+#include <cstdlib>
+
+class SectorSaveRegression : public testing::Test
+{
+protected:
+	ContentManager* previous = GCM;
+	std::unique_ptr<DefaultContentManager> content;
+	BOOLEAN oldFlag = gfWasInMeanwhile, oldScene = gfInMeanwhile, oldTraversal = gfTacticalTraversal;
+	SGPSector sector = gWorldSector;
+	UINT32 flags = SectorInfo[0].uiFlags;
+	MEANWHILE_DEFINITION meanwhile = gCurrentMeanwhileDef;
+	void SetUp() override
+	{
+		auto const* gameDir = std::getenv("JA2_VISUAL_TEST_GAMEDIR");
+		if (!gameDir) GTEST_SKIP() << "Set JA2_VISUAL_TEST_GAMEDIR for isolated sector-save checks.";
+		RustPointer<EngineOptions> options(EngineOptions_default());
+		EngineOptions_setVanillaGameDir(options.get(),gameDir);
+		content = std::make_unique<DefaultContentManager>(std::move(options));
+		GCM = content.get(); // Own temporary filesystem, never the player's save directory.
+		InitTacticalSave();
+		gWorldSector = SGPSector(1,1,0); SectorInfo[0].uiFlags = 0;
+	}
+	void TearDown() override
+	{
+		GCM = previous; gfWasInMeanwhile = oldFlag; gfInMeanwhile = oldScene; gfTacticalTraversal = oldTraversal;
+		gWorldSector = sector; SectorInfo[0].uiFlags = flags; gCurrentMeanwhileDef = meanwhile;
+	}
+};
+
+TEST_F(SectorSaveRegression, InitializingTacticalSaveClearsAStaleCutsceneFlag)
+{
+	gfWasInMeanwhile = TRUE;
+	InitTacticalSave();
+	EXPECT_FALSE(gfWasInMeanwhile);
+}
+
+TEST_F(SectorSaveRegression, EnteringANormalSectorClearsTheFlagBeforeLoadingItsItems)
+{
+	gfWasInMeanwhile = TRUE; gfTacticalTraversal = TRUE; // Normal-sector path, without scheduled scenes.
+	SectorInfo[0].uiFlags = SF_ITEM_TEMP_FILE_EXISTS;
+	{
+		AutoSGPFile file(GCM->tempFiles()->openForWriting(GetMapTempFileName(SF_ITEM_TEMP_FILE_EXISTS,gWorldSector)));
+		UINT8 byte = 0; file->write(&byte,1); // Stop at the real item reader, before world initialization.
+	}
+	EXPECT_ANY_THROW(LoadCurrentSectorsInformationFromTempItemsFile());
+	EXPECT_FALSE(gfWasInMeanwhile); // The previous scene can no longer suppress this sector's save.
+}
+
+TEST_F(SectorSaveRegression, MeanwhileMapsStillSuppressTheirOwnSectorSave)
+{
+	gfWasInMeanwhile = FALSE; gfTacticalTraversal = FALSE; gfInMeanwhile = TRUE;
+	gCurrentMeanwhileDef.ubMeanwhileID = FLOWERS;
+	LoadCurrentSectorsInformationFromTempItemsFile();
+	EXPECT_TRUE(gfWasInMeanwhile);
+	SaveCurrentSectorsInformationToTempItemFile();
+	EXPECT_FALSE(gfWasInMeanwhile);
+	EXPECT_TRUE(GCM->tempFiles()->findAllFilesInDir(TACTICAL_SAVE_TEMPDIR).empty());
+}
+
 #endif

@@ -3790,3 +3790,65 @@ static void AutoBandageFinishedCallback(MessageBoxReturnValue const ubResult)
 {
 	SetupDoneInterface();
 }
+
+#ifdef WITH_UNITTESTS
+#include "gtest/gtest.h"
+#include "Random.h"
+
+class AutoresolveRegression : public testing::Test
+{
+protected:
+	AUTORESOLVE_STRUCT battle{};
+	AUTORESOLVE_STRUCT* previous = gpAR;
+	std::mt19937 engine = gRandomEngine;
+	UINT32 index = guiPreRandomIndex;
+	std::array<UINT32,MAX_PREGENERATED_NUMS> numbers;
+	void SetUp() override
+	{
+		std::copy_n(guiPreRandomNums,MAX_PREGENERATED_NUMS,numbers.begin());
+		std::fill_n(guiPreRandomNums,MAX_PREGENERATED_NUMS,0x80000000u);
+		guiPreRandomIndex = 0; gpAR = &battle; // Sound disabled; no graphics/assets needed.
+	}
+	void TearDown() override
+	{
+		gpAR = previous; gRandomEngine = engine; guiPreRandomIndex = index;
+		std::copy(numbers.begin(),numbers.end(),guiPreRandomNums);
+	}
+};
+
+TEST_F(AutoresolveRegression, ForcedHitCannotTurnNegativeAccuracyIntoADamageBonus)
+{
+	SOLDIERCELL target{}; target.usDefence = 900;
+	EXPECT_EQ(CalcHitAccuracy(100,900,&target),0);
+	EXPECT_EQ(CalcHitAccuracy(900,900,&target),0);
+	EXPECT_EQ(CalcHitAccuracy(990,900,&target),9);
+}
+
+TEST_F(AutoresolveRegression, HighDefenceCannotCreateAnUnsignedRandomRange)
+{
+	SOLDIERCELL target{}; target.usDefence = 1000; // Escort characters use this defence.
+	EXPECT_EQ(CalcHitAccuracy(1000,950,&target),5);
+	EXPECT_EQ(CalcHitAccuracy(900,999,&target),0);
+	EXPECT_EQ(guiPreRandomIndex,0u); // Neither negative bonus range draws a random number.
+	target.usDefence = 600;
+	auto const accuracy = CalcHitAccuracy(900,700,&target);
+	EXPECT_GE(accuracy,20); EXPECT_LE(accuracy,29); // Ordinary positive bonuses still apply.
+}
+
+TEST_F(AutoresolveRegression, MissClearsReusedHitDamageWithoutChangingPendingShots)
+{
+	for (int slot = 0; slot < 3; ++slot)
+	{
+		SOLDIERTYPE shooter{}, victim{}; victim.bLife = 50;
+		SOLDIERCELL attacker{}, target{};
+		attacker.pSoldier = &shooter; attacker.uiFlags = CELL_AM_CREATURE; attacker.usAttack = 0;
+		target.pSoldier = &victim; target.usDefence = 1000;
+		for (int i = 0; i < 3; ++i) { target.usNextHit[i] = i == slot ? 0 : 100; target.usHitDamage[i] = 77; }
+		AttackTarget(&attacker,&target); // Deterministically loses the attack roll.
+		EXPECT_TRUE(target.uiFlags & CELL_DODGEDATTACK);
+		EXPECT_GT(target.usNextHit[slot],0); EXPECT_EQ(target.pAttacker[slot],&attacker);
+		for (int i = 0; i < 3; ++i) EXPECT_EQ(target.usHitDamage[i],i == slot ? 0 : 77);
+		EXPECT_EQ(victim.bLife,50);
+	}
+}
+#endif

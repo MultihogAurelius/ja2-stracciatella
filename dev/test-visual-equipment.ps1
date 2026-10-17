@@ -7,7 +7,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $playDirectory 'ja2.exe'))) {
     throw 'Run Build Custom JA2.cmd first.'
 }
 $settings = @{
-    GTEST_FILTER = 'VisualEquipment.*:VanillaGearAssets.*:DefaultTargetAimTest.*:MercAcknowledgement.*:InterfaceScaling.*:BulletTrail.*:TacticalZoom.*'
+    GTEST_FILTER = 'VisualEquipment.*:VanillaGearAssets.*:DefaultTargetAimTest.*:MercAcknowledgement.*:InterfaceScaling.*:BulletTrail.*:TacticalZoom.*:AutoresolveRegression.*:SectorSaveRegression.*:TacticalSave.*'
     GTEST_OUTPUT = "xml:$projectRoot\_bin\gear-tests.xml"
     JA2_VISUAL_TEST_GAMEDIR = $GameDirectory
     JA2_VISUAL_TEST_OUTPUT = "$projectRoot\_bin\vanilla-gear-preview.bmp"

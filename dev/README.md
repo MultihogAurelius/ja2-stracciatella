@@ -19,7 +19,22 @@ python dev/import_visual_equipment.py "F:\JA2 1.13 game files"
 Use `git status` and `git diff` to review changes before each commit. Keep new
 features and fixes in separate commits so they can be compared or reverted.
 
-## Current change
+## Selected upstream bug fixes
+
+Three fixes are cherry-picked with upstream authorship and original commit IDs:
+
+- `e2fcb2d13`: clear a reused autoresolve hit slot's damage when scheduling a
+  shot, so a miss cannot inherit an earlier bullet's damage.
+- `eab886c41`: clamp negative hit accuracy and random-bonus ranges, preventing
+  unsigned wraparound and inflated damage against unconscious or high-defence targets.
+- `445451514`: clear the previous-meanwhile flag when loading a sector or
+  initializing tactical saves, so a cutscene cannot suppress the next sector save.
+
+The regular test command includes autoresolve slot/accuracy regressions and
+sector-save flag regressions. Saving tests create an isolated temporary
+filesystem rather than operating on the player's campaign files.
+
+## Visual equipment
 
 Vanilla worn equipment and held weapons use JA2 1.13 LOBOT artwork on regular/
 stocky male, large male and female tactical sprites. Equipment changes appear
