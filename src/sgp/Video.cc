@@ -116,7 +116,9 @@ bool VideoHandleTacticalZoomWheel(SDL_MouseWheelEvent const& wheel)
 	SDL_Rect const viewport{0,gsVIEWPORT_WINDOW_START_Y,SCREEN_WIDTH,gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y};
 	if (!SDL_PointInRect(&point,&viewport)) return false;
 	int const direction = wheel.direction == SDL_MOUSEWHEEL_FLIPPED ? -1 : 1;
+	int const previous = GetTacticalZoomStep();
 	SetTacticalZoomStep(GetTacticalZoomStep() + std::clamp(wheel.y,-8,8) * direction);
+	if (GetTacticalZoomStep() != previous) SetRenderFlags(RENDER_FLAG_FULL);
 	return true;
 }
 

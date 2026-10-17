@@ -6,6 +6,10 @@
 #include "JAScreens.h"
 #include "Map_Information.h"
 #include "UILayout.h"
+#include "RenderWorld.h"
+#include "Isometric_Utils.h"
+#include "Interface.h"
+#include "Sys_Globals.h"
 #include <memory>
 #include <vector>
 
@@ -90,4 +94,63 @@ TEST(TacticalZoom, WheelOnlyZoomsLoadedBattlefieldAndHonoursLimitsAndDirection)
 	SetSafeMousePosition(200,200); guiCurrentScreen = MAP_SCREEN; EXPECT_FALSE(VideoHandleTacticalZoomWheel(wheel));
 	guiCurrentScreen = GAME_SCREEN; gfWorldLoaded = FALSE; EXPECT_FALSE(VideoHandleTacticalZoomWheel(wheel));
 	wheel.y = 0; EXPECT_FALSE(VideoHandleTacticalZoomWheel(wheel));
+}
+
+TEST(TacticalZoom, CameraReachesAllVisibleMapEdgesAndClampsWhenZoomingOut)
+{
+	struct Restore
+	{
+		UILayout layout = g_ui; BOOLEAN loaded = gfWorldLoaded; bool editor = gfEditMode; int step = GetTacticalZoomStep();
+		INT16 left = gsLeftX, right = gsRightX, top = gsTopY, bottom = gsBottomY;
+		INT16 x = gsRenderCenterX, y = gsRenderCenterY;
+		INT16 tlx = gsTopLeftWorldX, tly = gsTopLeftWorldY, brx = gsBottomRightWorldX, bry = gsBottomRightWorldY;
+		BOOLEAN atLeft = gfScrolledToLeft, atRight = gfScrolledToRight, atTop = gfScrolledToTop, atBottom = gfScrolledToBottom;
+		~Restore()
+		{
+			g_ui = layout; gfWorldLoaded = loaded; gfEditMode = editor; SetTacticalZoomStep(step);
+			gsLeftX = left; gsRightX = right; gsTopY = top; gsBottomY = bottom; gsRenderCenterX = x; gsRenderCenterY = y;
+			gsTopLeftWorldX = tlx; gsTopLeftWorldY = tly; gsBottomRightWorldX = brx; gsBottomRightWorldY = bry;
+			gfScrolledToLeft = atLeft; gfScrolledToRight = atRight; gfScrolledToTop = atTop; gfScrolledToBottom = atBottom;
+		}
+	} restore;
+	g_ui.setScreenSize(1920,1080); g_ui.m_tacticalMapCenterX = 960; g_ui.m_tacticalMapCenterY = 480;
+	gsVIEWPORT_START_X = 0; gsVIEWPORT_START_Y = 0; gsVIEWPORT_END_X = 1920; gsVIEWPORT_END_Y = 960;
+	gsVIEWPORT_WINDOW_START_Y = 20; gsVIEWPORT_WINDOW_END_Y = 940;
+	gsLeftX = -1600; gsRightX = 1600; gsTopY = 600; gsBottomY = 2600;
+	gfWorldLoaded = TRUE; gfEditMode = false;
+	int const left = gsLeftX + SCROLL_LEFT_PADDING, right = gsRightX + SCROLL_RIGHT_PADDING;
+	int const top = gsTopY + SCROLL_TOP_PADDING, bottom = gsBottomY + SCROLL_BOTTOM_PADDING;
+	auto check = [](int sx, int sy, bool force = false) {
+		INT16 x, y; FromScreenToCellCoordinates(sx,sy + 10,&x,&y);
+		return ApplyCameraScrollForTesting(x,y,force);
+	};
+	for (int step = 1; step <= 8; ++step)
+	{
+		auto const crop = MakeTacticalPresentation({0,20,1920,920},step).source;
+		SDL_Point const nearEdges[] = {{left + 960 - crop.x + 40,1600},
+			{right + 960 - crop.x - crop.w - 40,1600},
+			{0,top + 480 - crop.y + 40},{0,bottom + 480 - crop.y - crop.h - 40}};
+		for (auto const& point : nearEdges)
+		{
+			SCOPED_TRACE(testing::Message() << "zoom step " << step << " near " << point.x << "," << point.y);
+			SetTacticalZoomStep(0); EXPECT_FALSE(check(point.x,point.y)); // Original premature wall.
+			SetTacticalZoomStep(step); EXPECT_TRUE(check(point.x,point.y));
+		}
+		// Requests beyond the visible edge are still rejected at every zoom.
+		EXPECT_FALSE(check(left + 960 - crop.x - 80,1600));
+		EXPECT_FALSE(check(right + 960 - crop.x - crop.w + 80,1600));
+		EXPECT_FALSE(check(0,top + 480 - crop.y - 80));
+		EXPECT_FALSE(check(0,bottom + 480 - crop.y - crop.h + 80));
+		for (auto const& point : nearEdges)
+		{
+			SetTacticalZoomStep(step); ASSERT_TRUE(check(point.x,point.y,true));
+			// Zoom-out must clamp using the requested step, even though the last
+			// presented zoom may still be the old value.
+			SetTacticalZoomStep(0); ASSERT_TRUE(ApplyCameraScrollForTesting(gsRenderCenterX,gsRenderCenterY,true));
+			EXPECT_GE(gsTopLeftWorldX + gsLeftX,left - 40);
+			EXPECT_LE(gsBottomRightWorldX + gsLeftX,right + 40);
+			EXPECT_GE(gsTopLeftWorldY + gsTopY,top - 40);
+			EXPECT_LE(gsBottomRightWorldY + gsTopY,bottom + 40);
+		}
+	}
 }

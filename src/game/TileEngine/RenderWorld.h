@@ -134,6 +134,7 @@ void SetRenderCenter(INT16 sNewX, INT16 sNewY);
 #ifdef WITH_UNITTESTS
 // Exercise the actual multi-tile merc dispatcher without loading a map.
 void RenderMultiTileMercForTesting(INT16 tileX, INT16 tileY);
+bool ApplyCameraScrollForTesting(INT16 x, INT16 y, bool force);
 #endif
 
 #if defined _DEBUG

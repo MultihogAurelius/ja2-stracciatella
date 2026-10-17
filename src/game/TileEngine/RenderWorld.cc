@@ -30,6 +30,8 @@
 #include "Tile_Cache.h"
 #include "Timer_Control.h"
 #include "UILayout.h"
+#include "Tactical_Zoom.h"
+#include "Map_Information.h"
 #include "Video.h"
 #include "VObject.h"
 #include "VObject_Blitters.h"
@@ -2307,12 +2309,21 @@ static BOOLEAN ApplyScrolling(INT16 sTempRenderCenterX, INT16 sTempRenderCenterY
 	const INT16 sX_S = g_ui.m_tacticalMapCenterX;
 	const INT16 sY_S = g_ui.m_tacticalMapCenterY;
 
-	// Get corners in screen coords
-	const INT16 sTopLeftWorldX = sScreenCenterX - sX_S;
-	const INT16 sTopLeftWorldY = sScreenCenterY - sY_S;
+	// The renderer still draws the full canvas, but camera limits must use
+	// the crop actually shown at the requested zoom. Use the requested step,
+	// not the last presented frame, so zoom-out clamps before drawing.
+	SDL_Rect visible{0,0,2 * sX_S,2 * sY_S};
+	if (!gfEditMode && gfWorldLoaded && GetTacticalZoomStep() > 0)
+	{
+		auto const zoom = MakeTacticalPresentation({0,gsVIEWPORT_WINDOW_START_Y,SCREEN_WIDTH,
+			gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y},GetTacticalZoomStep());
+		if (zoom.Zoomed()) visible = zoom.source;
+	}
+	const INT16 sTopLeftWorldX = sScreenCenterX - sX_S + visible.x;
+	const INT16 sTopLeftWorldY = sScreenCenterY - sY_S + visible.y;
 
-	const INT16 sBottomRightWorldX = sScreenCenterX + sX_S;
-	const INT16 sBottomRightWorldY = sScreenCenterY + sY_S;
+	const INT16 sBottomRightWorldX = sTopLeftWorldX + visible.w;
+	const INT16 sBottomRightWorldY = sTopLeftWorldY + visible.h;
 
 	// Checking if screen shows areas outside of the map
 	const BOOLEAN fOutLeft   = (gsLeftX + SCROLL_LEFT_PADDING > sTopLeftWorldX);
@@ -2321,10 +2332,10 @@ static BOOLEAN ApplyScrolling(INT16 sTempRenderCenterX, INT16 sTempRenderCenterY
 	const BOOLEAN fOutBottom = (gsBottomY + SCROLL_BOTTOM_PADDING < sBottomRightWorldY);          /* bottom of the screen is below bottom if the map */
 
 	const int mapHeight = (gsBottomY + SCROLL_BOTTOM_PADDING) - (gsTopY + SCROLL_TOP_PADDING);
-	const int screenHeight = gsVIEWPORT_END_Y - gsVIEWPORT_START_Y;
+	const int screenHeight = visible.h;
 
 	const int mapWidth = (gsRightX + SCROLL_RIGHT_PADDING) - (gsLeftX + SCROLL_LEFT_PADDING);
-	const int screenWidth = gsVIEWPORT_END_X - gsVIEWPORT_START_X;
+	const int screenWidth = visible.w;
 
 	BOOLEAN fScrollGood = FALSE;
 
@@ -2369,29 +2380,29 @@ static BOOLEAN ApplyScrolling(INT16 sTempRenderCenterX, INT16 sTempRenderCenterY
 			if (screenHeight > mapHeight)
 			{
 				// printf("screen height is bigger than map height\n");
-				newScreenCenterY = gsCY + (SCROLL_TOP_PADDING + SCROLL_BOTTOM_PADDING) / 2;
+				newScreenCenterY = gsCY + (SCROLL_TOP_PADDING + SCROLL_BOTTOM_PADDING) / 2 + sY_S - visible.y - visible.h / 2;
 			}
 			else if (fOutTop)
 			{
-				newScreenCenterY = gsTopY + SCROLL_TOP_PADDING + sY_S;
+				newScreenCenterY = gsTopY + SCROLL_TOP_PADDING + sY_S - visible.y;
 			}
 			else if (fOutBottom)
 			{
-				newScreenCenterY = gsBottomY + SCROLL_BOTTOM_PADDING - sY_S;
+				newScreenCenterY = gsBottomY + SCROLL_BOTTOM_PADDING + sY_S - visible.y - visible.h;
 			}
 
 			if (screenWidth > mapWidth)
 			{
 				// printf("screen width is bigger than map width\n");
-				newScreenCenterX = gsCX + (SCROLL_LEFT_PADDING + SCROLL_RIGHT_PADDING) / 2;
+				newScreenCenterX = gsCX + (SCROLL_LEFT_PADDING + SCROLL_RIGHT_PADDING) / 2 + sX_S - visible.x - visible.w / 2;
 			}
 			else if (fOutLeft)
 			{
-				newScreenCenterX = gsLeftX + SCROLL_LEFT_PADDING + sX_S;
+				newScreenCenterX = gsLeftX + SCROLL_LEFT_PADDING + sX_S - visible.x;
 			}
 			else if (fOutRight)
 			{
-				newScreenCenterX = gsRightX + SCROLL_RIGHT_PADDING - sX_S;
+				newScreenCenterX = gsRightX + SCROLL_RIGHT_PADDING + sX_S - visible.x - visible.w;
 			}
 
 			INT16 sTempPosX_W;
@@ -2409,22 +2420,34 @@ static BOOLEAN ApplyScrolling(INT16 sTempRenderCenterX, INT16 sTempRenderCenterY
 		gsRenderCenterX = sTempRenderCenterX / CELL_X_SIZE * CELL_X_SIZE + CELL_X_SIZE / 2;
 		gsRenderCenterY = sTempRenderCenterY / CELL_X_SIZE * CELL_Y_SIZE + CELL_Y_SIZE / 2;
 
-		gsTopLeftWorldX = sTopLeftWorldX - gsLeftX;
-		gsTopLeftWorldY = sTopLeftWorldY - gsTopY;
+		// Keep the full render extents for existing sound/radar consumers.
+		// Recompute after a forced clamp rather than reporting the rejected centre.
+		INT16 actualX, actualY;
+		FromCellToScreenCoordinates(gsRenderCenterX,gsRenderCenterY,&actualX,&actualY);
+		actualY -= 10;
+		gsTopLeftWorldX = actualX - sX_S - gsLeftX;
+		gsTopLeftWorldY = actualY - sY_S - gsTopY;
+		gsBottomRightWorldX = actualX + sX_S - gsLeftX;
+		gsBottomRightWorldY = actualY + sY_S - gsTopY;
 
-		gsBottomRightWorldX = sBottomRightWorldX - gsLeftX;
-		gsBottomRightWorldY = sBottomRightWorldY - gsTopY;
-
-		gfScrolledToLeft   = std::abs(sTopLeftWorldX  - gsLeftX) <= std::abs(SCROLL_LEFT_PADDING);
-		gfScrolledToRight  = std::abs(sBottomRightWorldX  - gsRightX) <= std::abs(SCROLL_RIGHT_PADDING) + CELL_X_SIZE;
-		gfScrolledToTop    = std::abs(sTopLeftWorldY  - gsTopY) <= std::abs(SCROLL_TOP_PADDING);
-		gfScrolledToBottom = std::abs(sBottomRightWorldY  - gsBottomY) <= std::abs(SCROLL_BOTTOM_PADDING) + CELL_Y_SIZE * 2;
+		int const left = actualX - sX_S + visible.x, top = actualY - sY_S + visible.y;
+		gfScrolledToLeft   = std::abs(left - gsLeftX) <= std::abs(SCROLL_LEFT_PADDING);
+		gfScrolledToRight  = std::abs(left + visible.w - gsRightX) <= std::abs(SCROLL_RIGHT_PADDING) + CELL_X_SIZE;
+		gfScrolledToTop    = std::abs(top - gsTopY) <= std::abs(SCROLL_TOP_PADDING);
+		gfScrolledToBottom = std::abs(top + visible.h - gsBottomY) <= std::abs(SCROLL_BOTTOM_PADDING) + CELL_Y_SIZE * 2;
 
 		SetPositionSndsVolumeAndPanning();
 	}
 
 	return fScrollGood;
 }
+
+#ifdef WITH_UNITTESTS
+bool ApplyCameraScrollForTesting(INT16 x, INT16 y, bool force)
+{
+	return ApplyScrolling(x,y,force,!force);
+}
+#endif
 
 
 static void ClearMarkedTiles(void)

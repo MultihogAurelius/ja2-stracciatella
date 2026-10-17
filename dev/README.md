@@ -110,6 +110,8 @@ session and is remembered when returning from the map or laptop. The bottom
 panel and top message bar keep their normal size. The cursor stays at native
 size and moves smoothly; battlefield clicks and cursor warps use the zoom
 transform, while HUD clicks and edge scrolling use displayed coordinates.
+Camera limits follow the visible crop at each zoom level. Zooming out clamps
+the camera to the wider view before rendering, so it stays inside the map.
 
 The wheel is consumed only over a loaded tactical battlefield. Other screens
 and the bottom panel retain their previous wheel handling. This enlarges the
