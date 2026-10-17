@@ -23,6 +23,7 @@ void         InvalidateScreen(void);
 
 void VideoSetBrightness(float brightness);
 bool VideoHandleInterfaceScaleKey(SDL_Keycode key, SDL_Keymod modifiers);
+bool VideoHandleTacticalZoomWheel(SDL_MouseWheelEvent const&);
 
 /* Toggle between fullscreen and window mode after initialising the video
  * manager */

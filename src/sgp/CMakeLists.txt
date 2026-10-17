@@ -11,6 +11,7 @@ set(LOCAL_JA2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/ImpTGA.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Input.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Interface_Scaling.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Tactical_Zoom.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Line.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/LoadSaveData.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/MouseSystem.cc
@@ -35,6 +36,7 @@ if (WITH_UNITTESTS)
         ${LOCAL_JA2_SOURCES}
         ${CMAKE_CURRENT_SOURCE_DIR}/FileMan_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/Interface_Scaling_unittest.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/Tactical_Zoom_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/LoadSaveData_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/Logger_unittest.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/SGPStrings_unittest.cc

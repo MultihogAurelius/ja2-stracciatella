@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 #include "Interface_Scaling.h"
+#include "Tactical_Zoom.h"
+#include "Map_Information.h"
 #include "Input.h"
 #include "Video.h"
 #include "JAScreens.h"
@@ -155,6 +157,8 @@ TEST(InterfaceScaling, VideoRefreshScalesTheInterfaceAndCursorAndRestoresTactica
 		UILayout layout = g_ui;
 		ScreenID screen = guiCurrentScreen, parent = gMsgBox.uiExitScreen;
 		InterfacePresentation presentation = GetInterfacePresentation();
+		TacticalPresentation tactical = GetTacticalPresentation();
+		int zoomStep = GetTacticalZoomStep(); BOOLEAN loaded = gfWorldLoaded;
 		SGPPoint mouse = GetMousePos();
 		FPS::RenderPresent_t present = FPS::RenderPresentPtr;
 		std::string driver = SDL_getenv("SDL_VIDEODRIVER") ? SDL_getenv("SDL_VIDEODRIVER") : "";
@@ -169,6 +173,7 @@ TEST(InterfaceScaling, VideoRefreshScalesTheInterfaceAndCursorAndRestoresTactica
 			SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER,renderer.empty() ? nullptr : renderer.c_str(),SDL_HINT_OVERRIDE);
 			g_ui = layout; guiCurrentScreen = screen; gMsgBox.uiExitScreen = parent; FPS::RenderPresentPtr = present;
 			SetInterfacePresentation({}); SetSafeMousePosition(mouse.iX,mouse.iY); SetInterfacePresentation(presentation);
+			SetTacticalPresentation(tactical); SetTacticalZoomStep(zoomStep); gfWorldLoaded = loaded;
 			capture = nullptr;
 		}
 	} restore;
@@ -208,6 +213,29 @@ TEST(InterfaceScaling, VideoRefreshScalesTheInterfaceAndCursorAndRestoresTactica
 	EXPECT_EQ(pixels[40 * 1920 + 100],0xf800);
 	EXPECT_EQ(pixels[290 * 1920 + 530],0x07e0); // No stale cursor at its old logical position.
 	EXPECT_EQ(pixels[1079 * 1920 + 1919],0x07e0); // Full tactical canvas is restored.
+	// Exercise the real video path with tactical zoom and an unscaled HUD.
+	gsVIEWPORT_WINDOW_START_Y = 20; gsVIEWPORT_WINDOW_END_Y = 940; gfWorldLoaded = TRUE;
+	{
+		SGPVSurface::Lock buffer(FRAME_BUFFER); auto* data = buffer.Buffer<UINT16>();
+		std::fill_n(data,20 * 1920,0xffe0);
+		std::fill_n(data + 940 * 1920,140 * 1920,0x001f);
+		for (int y = 400; y < 420; ++y) std::fill_n(data + y * 1920 + 700,20,0xffff);
+	}
+	InvalidateScreen(); SetSafeMousePosition(451,331); SetTacticalZoomStep(4); RefreshScreen();
+	ASSERT_TRUE(GetTacticalPresentation().Zoomed());
+	EXPECT_EQ(pixels[330 * 1920 + 450],0xffff); // The battlefield landmark moved and doubled.
+	EXPECT_EQ(pixels[331 * 1920 + 451],0xf800); // Cursor is at the exact displayed pointer.
+	EXPECT_EQ(pixels[331 * 1920 + 452],0xffff); // Cursor itself did not double in size.
+	EXPECT_EQ(pixels[10 * 1920 + 100],0xffe0); EXPECT_EQ(pixels[1000 * 1920 + 100],0x001f);
+	SDL_MouseButtonEvent button{}; button.button = SDL_BUTTON_LEFT; button.x = 451; button.y = 331;
+	MouseButtonDown(&button); EXPECT_EQ(GetMousePos().iX,705); EXPECT_EQ(GetMousePos().iY,405); MouseButtonUp(&button);
+	SetSafeMousePosition(100,1000); RefreshScreen(); EXPECT_EQ(GetMousePos().iX,100); EXPECT_EQ(GetMousePos().iY,1000);
+	EXPECT_EQ(pixels[1000 * 1920 + 100],0xf800);
+	guiCurrentScreen = MAP_SCREEN; RefreshScreen(); EXPECT_FALSE(GetTacticalPresentation().Zoomed());
+	guiCurrentScreen = GAME_SCREEN; RefreshScreen(); EXPECT_TRUE(GetTacticalPresentation().Zoomed());
+	SetTacticalZoomStep(0); RefreshScreen(); EXPECT_FALSE(GetTacticalPresentation().Zoomed());
+	EXPECT_EQ(pixels[400 * 1920 + 700],0xffff); // Native view restored, without a stale cursor.
+	DequeueAllInputEvents();
 	guiCurrentScreen = LAPTOP_SCREEN; RefreshScreen();
 	EXPECT_EQ(GetInterfacePresentation().scale,2);
 	EXPECT_TRUE(VideoHandleInterfaceScaleKey(SDLK_1,static_cast<SDL_Keymod>(KMOD_CTRL | KMOD_ALT)));

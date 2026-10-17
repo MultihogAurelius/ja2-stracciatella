@@ -60,6 +60,8 @@ void FingerDown(const SDL_TouchFingerEvent*);
 void FingerUp(const SDL_TouchFingerEvent*);
 
 SGPPoint GetMousePos();
+// Position on the presented logical canvas, before map scaling/tactical zoom.
+SDL_Point GetMouseDisplayPos();
 // TRUE = specified mouse button is down, FALSE = specified mouse button is up
 bool IsMouseButtonDown(UINT32 mouseButton);
 // TRUE = Main finger is down. Multitouch gesture is not detected, FALSE = Main finger is up or multitouch gesture is in progress

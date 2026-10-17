@@ -2127,10 +2127,11 @@ void ScrollWorld(void)
 			}
 
 			if (!gfIsUsingTouch && !fIsScrollingByOffset) {
-				if (gusMouseYPos <  NO_PX_SHOW_EXIT_CURS)                 ScrollFlags |= SCROLL_UP;
-				if (gusMouseYPos >= SCREEN_HEIGHT - NO_PX_SHOW_EXIT_CURS) ScrollFlags |= SCROLL_DOWN;
-				if (gusMouseXPos >= SCREEN_WIDTH  - NO_PX_SHOW_EXIT_CURS) ScrollFlags |= SCROLL_RIGHT;
-				if (gusMouseXPos <  NO_PX_SHOW_EXIT_CURS)                 ScrollFlags |= SCROLL_LEFT;
+				auto const mouse = GetMouseDisplayPos();
+				if (mouse.y <  NO_PX_SHOW_EXIT_CURS)                 ScrollFlags |= SCROLL_UP;
+				if (mouse.y >= SCREEN_HEIGHT - NO_PX_SHOW_EXIT_CURS) ScrollFlags |= SCROLL_DOWN;
+				if (mouse.x >= SCREEN_WIDTH  - NO_PX_SHOW_EXIT_CURS) ScrollFlags |= SCROLL_RIGHT;
+				if (mouse.x <  NO_PX_SHOW_EXIT_CURS)                 ScrollFlags |= SCROLL_LEFT;
 			}
 		}
 	}

@@ -17,6 +17,8 @@
 #include "GameInstance.h"
 #include "Input.h"
 #include "Interface_Scaling.h"
+#include "Tactical_Zoom.h"
+#include "Map_Information.h"
 #include "JAScreens.h"
 #include "Json.h"
 #include "MessageBoxScreen.h"
@@ -107,6 +109,17 @@ bool VideoHandleInterfaceScaleKey(SDL_Keycode key, SDL_Keymod modifiers)
 	return true;
 }
 
+bool VideoHandleTacticalZoomWheel(SDL_MouseWheelEvent const& wheel)
+{
+	if (guiCurrentScreen != GAME_SCREEN || !gfWorldLoaded || wheel.y == 0) return false;
+	auto const point = GetMouseDisplayPos();
+	SDL_Rect const viewport{0,gsVIEWPORT_WINDOW_START_Y,SCREEN_WIDTH,gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y};
+	if (!SDL_PointInRect(&point,&viewport)) return false;
+	int const direction = wheel.direction == SDL_MOUSEWHEEL_FLIPPED ? -1 : 1;
+	SetTacticalZoomStep(GetTacticalZoomStep() + std::clamp(wheel.y,-8,8) * direction);
+	return true;
+}
+
 static void DeletePrimaryVideoSurfaces(void);
 
 // returns if desktop resolution larger game resolution
@@ -178,6 +191,7 @@ void InitializeVideoManager(const VideoScaleQuality quality,
 	GameRenderer = SDL_CreateRenderer(g_game_window, -1, 0);
 	SDL_RenderSetLogicalSize(GameRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	SetInterfacePresentation(MakeInterfacePresentation(SCREEN_WIDTH,SCREEN_HEIGHT,GAME_SCREEN,1));
+	SetTacticalPresentation({});
 
 	SurfaceUniquePtr windowIcon(SDL_CreateRGBSurfaceWithFormatFrom(
 			(void*)gWindowIconData.pixel_data,
@@ -508,13 +522,15 @@ void RefreshScreen(void)
 	LoadInterfaceScale();
 	auto const screen = InterfaceScreen();
 	auto const presentation = MakeInterfacePresentation(SCREEN_WIDTH,SCREEN_HEIGHT,screen,InterfaceScale);
-	if (!SameInterfacePresentation(presentation,GetInterfacePresentation()))
+	SDL_Rect const viewport{0,gsVIEWPORT_WINDOW_START_Y,SCREEN_WIDTH,gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y};
+	auto const tactical = guiCurrentScreen == GAME_SCREEN && gfWorldLoaded ? MakeTacticalPresentation(viewport,GetTacticalZoomStep()) : TacticalPresentation{};
+	if (!SameInterfacePresentation(presentation,GetInterfacePresentation()) || !SameTacticalPresentation(tactical,GetTacticalPresentation()))
 	{
 		// Preserve the pointer's displayed position when entering/leaving a
 		// scaled screen. Incoming events will now use the same new transform.
-		auto const mouse = GetMousePos();
-		auto const displayed = InterfaceToDisplay(GetInterfacePresentation(),{mouse.iX,mouse.iY});
+		auto const displayed = GetMouseDisplayPos();
 		SetInterfacePresentation(presentation);
+		SetTacticalPresentation(tactical);
 		SetSafeMousePosition(displayed.x,displayed.y);
 	}
 	LastPresentationScreen = screen;
@@ -589,7 +605,7 @@ void RefreshScreen(void)
 	dst.y = cursorPos.iY - gsMouseCursorYOffset;
 	dst.w = src.w;
 	dst.h = src.h;
-	if (presentation.scale == 1) SDL_BlitSurface(MouseCursor, &src, ScreenBuffer, &dst);
+	if (presentation.scale == 1 && !tactical.Zoomed()) SDL_BlitSurface(MouseCursor, &src, ScreenBuffer, &dst);
 	else
 	{
 		// Cursor is drawn after scaling, including over the black margins.
@@ -622,7 +638,19 @@ void RefreshScreen(void)
 	SDL_RenderClear(GameRenderer);
 
 	SDL_Texture* scaledCursor = nullptr;
-	if (presentation.scale > 1)
+	if (tactical.Zoomed())
+	{
+		RenderTacticalPresentation(GameRenderer,ScreenTexture,tactical);
+		scaledCursor = SDL_CreateTextureFromSurface(GameRenderer,MouseCursor);
+		if (scaledCursor)
+		{
+			auto const mouse = GetMousePos();
+			auto const point = cursorPos.iX == mouse.iX && cursorPos.iY == mouse.iY ? GetMouseDisplayPos() : TacticalToDisplay(tactical,{cursorPos.iX,cursorPos.iY});
+			SDL_Rect const cursorDest{point.x - gsMouseCursorXOffset,point.y - gsMouseCursorYOffset,src.w,src.h};
+			SDL_RenderCopy(GameRenderer,scaledCursor,&src,&cursorDest);
+		}
+	}
+	else if (presentation.scale > 1)
 	{
 		RenderScaledInterface(GameRenderer,ScreenTexture,presentation);
 		scaledCursor = SDL_CreateTextureFromSurface(GameRenderer,MouseCursor);

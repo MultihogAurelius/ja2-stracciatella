@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "Video.h"
 #include "Interface_Scaling.h"
+#include "Tactical_Zoom.h"
 #include "UILayout.h"
 
 #include <string_theory/string>
@@ -21,6 +22,7 @@
 static std::bitset<2 * SDL_NUM_SCANCODES> gfKeyState;
 static BOOLEAN fCursorWasClipped = FALSE;
 static SGPRect gCursorClipRect;
+static SDL_Point gMouseDisplayPos{};
 
 static void QueuePointerEvent(UINT16 eventType, UINT32 param);
 
@@ -127,7 +129,8 @@ static void QueueKeyEvent(UINT16 ubInputEvent, SDL_Keycode Key, SDL_Keymod Mod, 
 }
 
 void SetSafeMousePosition(int x, int y) {
-	auto const position = DisplayToInterface(GetInterfacePresentation(),{x,y});
+	gMouseDisplayPos = {std::clamp(x,0,static_cast<int>(SCREEN_WIDTH)),std::clamp(y,0,static_cast<int>(SCREEN_HEIGHT))};
+	auto const position = DisplayToTactical(GetTacticalPresentation(),DisplayToInterface(GetInterfacePresentation(),{x,y}));
 	x = position.x; y = position.y;
 	if (x < 0) x = 0;
 	if (y < 0) y = 0;
@@ -265,6 +268,9 @@ right_button:
 void MouseWheelScroll(const SDL_MouseWheelEvent* WheelEv)
 {
 	gfIsUsingTouch = false;
+
+	if (VideoHandleTacticalZoomWheel(*WheelEv)) return;
+	if (WheelEv->y == 0) return;
 
 	if (WheelEv->y > 0)
 	{
@@ -503,6 +509,8 @@ SGPPoint GetMousePos()
 	return { gusMouseXPos, gusMouseYPos };
 }
 
+SDL_Point GetMouseDisplayPos() { return gMouseDisplayPos; }
+
 bool IsMouseButtonDown(UINT32 mouseButton) {
 	switch (mouseButton) {
 		case MOUSE_BUTTON_LEFT:
@@ -587,7 +595,7 @@ void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 		return;
 	}
 	auto const presented = InterfaceToDisplay(GetInterfacePresentation(),
-		{static_cast<int>(uiNewXPos),static_cast<int>(uiNewYPos)});
+		TacticalToDisplay(GetTacticalPresentation(),{static_cast<int>(uiNewXPos),static_cast<int>(uiNewYPos)}));
 
 	int windowWidth, windowHeight;
 	SDL_GetWindowSize(GAME_WINDOW, &windowWidth, &windowHeight);

@@ -102,6 +102,23 @@ the actions silent; the speaker should vary. Try single-merc orders too. Check
 mute confirmations, and try a group with a blocked path: a merc unable to move
 should not provide the movement acknowledgement.
 
+## Tactical mouse-wheel zoom
+
+Scroll up over the battlefield to zoom in; scroll down to zoom out. Zoom runs
+from 100% to 300% in 25% steps, centred on the current view. It lasts for the
+session and is remembered when returning from the map or laptop. The bottom
+panel and top message bar keep their normal size. The cursor stays at native
+size and moves smoothly; battlefield clicks and cursor warps use the zoom
+transform, while HUD clicks and edge scrolling use displayed coordinates.
+
+The wheel is consumed only over a loaded tactical battlefield. Other screens
+and the bottom panel retain their previous wheel handling. This enlarges the
+existing rendered battlefield without changing world coordinates or combat.
+
+Playtest selecting mercs, firing and plotting paths at several zoom levels,
+drag selection, screen-edge and arrow-key scrolling, inventory panel changes,
+and opening/closing the map and laptop.
+
 ## Map and laptop scaling
 
 The strategic map and laptop enlarge their centered 640x480 interface using
