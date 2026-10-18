@@ -11,6 +11,7 @@
 #include "TileDef.h"
 #include "Timer_Control.h"
 #include "Weapons.h"
+#include "Weapon_Sound_System.h"
 #include "Animation_Control.h"
 #include "Handle_UI.h"
 #include "Isometric_Utils.h"
@@ -615,16 +616,20 @@ static void UseGun(SOLDIERTYPE * const pSoldier, GridNo const sTargetGridNo)
 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->bAimTime );
 
 	usItemNum = pSoldier->usAttackingWeapon;
+	const bool newWeaponSound = PlayNewWeaponSound(*pSoldier);
 
 	if ( pSoldier->bDoBurst )
 	{
 		// ONly deduct points once
 		if ( pSoldier->bDoBurst == 1 )
 		{
-			auto burstSound = GetBurstSoundName(*pSoldier);
-			SLOGD("Using burst sound {}", burstSound);
-			pSoldier->uiBurstSoundID = PlayLocationJA2SampleFromFile(pSoldier->sGridNo,
-				burstSound.c_str(), HIGHVOLUME, 1);
+			if (!newWeaponSound)
+			{
+				auto burstSound = GetBurstSoundName(*pSoldier);
+				SLOGD("Using burst sound {}", burstSound);
+				pSoldier->uiBurstSoundID = PlayLocationJA2SampleFromFile(pSoldier->sGridNo,
+					burstSound.c_str(), HIGHVOLUME, 1);
+			}
 
 			DeductPoints( pSoldier, sAPCost, 0 );
 		}
@@ -649,7 +654,7 @@ static void UseGun(SOLDIERTYPE * const pSoldier, GridNo const sTargetGridNo)
 		auto weapon = GCM->getWeapon( usItemNum );
 		//PLAY SOUND
 		// ( For throwing knife.. it's earlier in the animation
-		if ( GCM->getItem(usItemNum)->getItemClass() != IC_THROWING_KNIFE )
+		if (!newWeaponSound && GCM->getItem(usItemNum)->getItemClass() != IC_THROWING_KNIFE)
 		{
 			// Switch on silencer...
 			if( FindAttachment( &( pSoldier->inv[ pSoldier->ubAttackingHand ] ), SILENCER ) != NO_SLOT )

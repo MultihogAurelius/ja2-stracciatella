@@ -1,0 +1,355 @@
+{
+  "enabled": true,
+  "source": "JA2 1.13 NWSS / sevenfm, with matching 1.13 shot recordings for missing vanilla calibres",
+  "shot_volume": 127,
+  "echo_volume": 85,
+  "room_volume": 85,
+  "casing_volume": 25,
+  "empty_volume": 50,
+  "casing_chance_percent": 50,
+  "weapons": [
+    {
+      "item": 1,
+      "name": "GLOCK_17",
+      "calibre": "9x19mm",
+      "type": "pistol",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 2,
+      "name": "GLOCK_18",
+      "calibre": "9x19mm",
+      "type": "mp",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 3,
+      "name": "BERETTA_92F",
+      "calibre": "9x19mm",
+      "type": "pistol",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 4,
+      "name": "BERETTA_93R",
+      "calibre": "9x19mm",
+      "type": "mp",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 5,
+      "name": "SW38",
+      "calibre": "38 special",
+      "type": "pistol",
+      "automatic": false,
+      "cases": false,
+      "last_round": false
+    },
+    {
+      "item": 6,
+      "name": "BARRACUDA",
+      "calibre": "357 magnum",
+      "type": "pistol",
+      "automatic": false,
+      "cases": false,
+      "last_round": false,
+      "sound_name": "revolver"
+    },
+    {
+      "item": 7,
+      "name": "DESERTEAGLE",
+      "calibre": "357 magnum",
+      "type": "pistol",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 8,
+      "name": "M1911",
+      "calibre": "45 acp",
+      "type": "pistol",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 9,
+      "name": "MP5K",
+      "calibre": "9x19mm",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 10,
+      "name": "MAC10",
+      "calibre": "45 acp",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 11,
+      "name": "THOMPSON",
+      "calibre": "45 acp",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 12,
+      "name": "COMMANDO",
+      "calibre": "5.56x45mm",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 13,
+      "name": "MP53",
+      "calibre": "5.56x45mm",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 14,
+      "name": "AKSU74",
+      "calibre": "5.45x39mm",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 15,
+      "name": "P90",
+      "calibre": "5.7x28mm",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 16,
+      "name": "TYPE85",
+      "calibre": "7.62x25mm",
+      "type": "smg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 17,
+      "name": "SKS",
+      "calibre": "7.62x39mm",
+      "type": "rifle",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 18,
+      "name": "DRAGUNOV",
+      "calibre": "7.62x54mmr",
+      "type": "sniper",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 19,
+      "name": "M24",
+      "calibre": "7.62x51mm",
+      "type": "sniper",
+      "automatic": false,
+      "cases": false,
+      "last_round": false
+    },
+    {
+      "item": 20,
+      "name": "AUG",
+      "calibre": "5.56x45mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 21,
+      "name": "G41",
+      "calibre": "5.56x45mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 22,
+      "name": "MINI14",
+      "calibre": "5.56x45mm",
+      "type": "rifle",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 23,
+      "name": "C7",
+      "calibre": "5.56x45mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 24,
+      "name": "FAMAS",
+      "calibre": "5.56x45mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 25,
+      "name": "AK74",
+      "calibre": "5.45x39mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 26,
+      "name": "AKM",
+      "calibre": "7.62x39mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 27,
+      "name": "M14",
+      "calibre": "7.62x51mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 28,
+      "name": "FNFAL",
+      "calibre": "7.62x51mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 29,
+      "name": "G3A3",
+      "calibre": "7.62x51mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 30,
+      "name": "G11",
+      "calibre": "4.7x33mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 31,
+      "name": "M870",
+      "calibre": "12 gauge",
+      "type": "shotgun",
+      "automatic": false,
+      "cases": false,
+      "last_round": false
+    },
+    {
+      "item": 32,
+      "name": "SPAS15",
+      "calibre": "12 gauge",
+      "type": "shotgun",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 33,
+      "name": "CAWS",
+      "calibre": "caws",
+      "type": "shotgun",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 34,
+      "name": "MINIMI",
+      "calibre": "5.56x45mm",
+      "type": "lmg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 35,
+      "name": "RPK74",
+      "calibre": "5.45x39mm",
+      "type": "lmg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 36,
+      "name": "HK21E",
+      "calibre": "7.62x51mm",
+      "type": "lmg",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 56,
+      "name": "AUTOMAG_III",
+      "calibre": "7.62x51mm",
+      "type": "pistol",
+      "automatic": false,
+      "cases": true,
+      "last_round": true
+    },
+    {
+      "item": 331,
+      "name": "M14COPY",
+      "calibre": "7.62x51mm",
+      "type": "ar",
+      "automatic": true,
+      "cases": true,
+      "last_round": true
+    }
+  ]
+}

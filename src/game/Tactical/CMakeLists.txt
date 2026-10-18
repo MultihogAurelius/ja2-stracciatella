@@ -77,6 +77,7 @@ set(LOCAL_JA2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/UI_Cursors.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Vehicles.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Visual_Equipment.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Weapon_Sound_System.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Weapons.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/World_Items.cc
 )

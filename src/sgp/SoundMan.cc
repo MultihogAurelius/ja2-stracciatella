@@ -80,7 +80,8 @@ enum
 
 
 #define SOUND_MAX_CACHED 128 // number of cache slots
-#define SOUND_MAX_CHANNELS 16 // number of mixer channels
+// Layered NWSS gunfire needs room for shots, echoes and cases alongside voices.
+#define SOUND_MAX_CHANNELS 64 // number of mixer channels
 
 // The audio device will be opened with the following values
 #define SOUND_FREQ      44100

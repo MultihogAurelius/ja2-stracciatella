@@ -14,10 +14,47 @@ On a fresh checkout, recreate the cosmetic assets before building:
 
 ```powershell
 python dev/import_visual_equipment.py "F:\JA2 1.13 game files"
+python dev/import_nwss.py "F:\JA2 1.13 game files"
 ```
 
 Use `git status` and `git diff` to review changes before each commit. Keep new
 features and fixes in separate commits so they can be compared or reverted.
+
+## New Weapon Sound System (NWSS)
+
+The 1.13 NWSS audio path is adapted for vanilla Stracciatella weapons. The
+importer copies 1.13's `Base/AltSounds` plus individual-shot recordings for
+the missing .38/.357/.45 calibre folders. It creates sound-only mappings for
+38 vanilla guns (including the M14 copy). Rocket rifles, dart guns, flame
+weapons, knives and explosives keep their original dedicated audio.
+
+`assets/externalized/nwss/config.json` enables/disables the system and controls
+shot, echo, room, casing and empty-magazine playback volumes. Rebuild after
+editing that source configuration. To adjust the current build immediately,
+edit `_bin/build/play/externalized/nwss/config.json` and restart the game.
+Set `enabled` to false for original weapon audio. The audio
+binaries are local/ignored and recreated by `dev/import_nwss.py`; source paths
+are recorded in `nwss/coverage.json`. Attribution: sevenfm's 1.13 NWSS and the
+sound authors credited by the 1.13 asset pack. System/modding description:
+https://thepit.ja-galaxy-forum.com/index.php?prevloaded=1&start=40&t=msg&th=24289
+
+Every actual shot plays once, including individual burst bullets and both
+hands. Burst echoes occur at the last shot, including a shortened magazine.
+Room/underground effects and town/hill/forest/open-area echoes use the existing
+map data. Suppressed shots omit acoustic effects. Cases play quietly on hard
+ground/roofs with a 50% chance; revolvers and manually cycled vanilla guns do
+not eject cases automatically. Missing samples retain original playback. Burst
+fallback is selected once to avoid mixing two complete firing sound systems.
+
+The mixer has 64 channels for layered shots plus voices and ambient sounds.
+Sound variation uses its own random generator. AP, ammunition, simulation
+noise, damage, accuracy and both combat random streams are unchanged.
+
+`Nwss.*` and `NwssAssets.*` cover resolution/fallback, suppression, burst
+boundaries, surface effects, all mappings, actual Ogg decoding/mixing and
+combat-state/RNG preservation. Mixer tests use SDL's silent dummy device.
+In-game, compare pistol/rifle shots, short/full bursts, dual pistols, silenced
+fire and indoor/outdoor/rooftop/underground acoustics using a separate save.
 
 ## LOBOT hit, death and throw animations
 
