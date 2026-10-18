@@ -1645,11 +1645,12 @@ next_tile:
 }; // class RenderTiles
 
 #ifdef WITH_UNITTESTS
-void RenderMultiTileMercForTesting(INT16 tileX, INT16 tileY)
+void RenderMercForTesting(INT16 tileX, INT16 tileY, bool multiTile)
 {
 	auto const oldUsed = uiLayerUsedFlags, oldAdditive = uiAdditiveLayerUsedFlags;
 	uiLayerUsedFlags = TILES_LAYER_ALL;
-	RenderTiles(tileX, tileY, 0, 0, 1, 1)(TILES_NONE, RENDER_DYNAMIC_STRUCT_MERCS);
+	RenderTiles(tileX, tileY, 0, 0, 1, 1)(TILES_NONE,
+		multiTile ? RENDER_DYNAMIC_STRUCT_MERCS : RENDER_DYNAMIC_MERCS);
 	uiLayerUsedFlags = oldUsed;
 	uiAdditiveLayerUsedFlags = oldAdditive;
 }

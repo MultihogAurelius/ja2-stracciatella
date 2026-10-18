@@ -76133,7 +76133,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "hands",
       "condition": 82,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_LSLEEVE.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_LSLEEVE.STI",
       "palette": "",
       "shadow": false,
       "gear": "Longsleeves",
@@ -83105,7 +83105,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "facegear",
       "condition": 102,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_NVG.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_NVG.STI",
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "NVG",
@@ -86326,7 +86326,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "gasmask",
       "condition": 112,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_gasmask.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_gasmask.STI",
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "Gasmask",
@@ -96533,7 +96533,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "shadow",
       "condition": 57,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_shadow.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_shadow.STI",
       "palette": "",
       "shadow": true,
       "gear": ""
@@ -97578,7 +97578,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "legs",
       "condition": 57,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_legs.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_legs.STI",
       "palette": "",
       "shadow": false,
       "gear": ""
@@ -98733,7 +98733,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "body",
       "condition": 57,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_torso.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_torso.STI",
       "palette": "",
       "shadow": false,
       "gear": ""
@@ -99877,7 +99877,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "hands",
       "condition": 57,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_hands.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_hands.STI",
       "palette": "",
       "shadow": false,
       "gear": ""
@@ -101043,7 +101043,7 @@
       "base_sprite": "anims/m_merc/m_diehdb.sti",
       "layer": "head",
       "condition": 57,
-      "sprite": "visual-equipment/sprites/BGM/M_DIEHARD_head.STI",
+      "sprite": "visual-equipment/sprites/BGM/M_DIEHARDB_head.STI",
       "palette": "",
       "shadow": false,
       "gear": ""
@@ -116443,6 +116443,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "KevlarLeggings",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "LEGPOS",
       "items": [
         170,
@@ -118041,6 +118046,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "SpectraLeggings",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "LEGPOS",
       "items": [
         173,
@@ -119715,6 +119725,11 @@
       "palette": "",
       "shadow": false,
       "gear": "Longsleeves",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "VESTPOS",
       "items": [
         188,
@@ -121287,6 +121302,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "SteelHelmet",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "HELMETPOS",
       "items": [
         176
@@ -122858,6 +122878,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "KevlarHelmet",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "HELMETPOS",
       "items": [
         177,
@@ -124507,6 +124532,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "SpectraHelmet",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "HELMETPOS",
       "items": [
         180,
@@ -126098,6 +126128,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "NVG",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "FACE",
       "items": [
         211,
@@ -127592,6 +127627,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "Goggles",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "FACE",
       "items": [
         212
@@ -129047,6 +129087,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "Gasmask",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "FACE",
       "items": [
         213
@@ -130502,6 +130547,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "HeadSet",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "FACE",
       "items": [
         210
@@ -132090,6 +132140,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "SpectraVest",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "VESTPOS",
       "items": [
         167,
@@ -133756,6 +133811,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "KevlarVest",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "VESTPOS",
       "items": [
         164,
@@ -135422,6 +135482,11 @@
       "palette": "visual-equipment/palettes/Hats.stp",
       "shadow": false,
       "gear": "FlakVest",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "VESTPOS",
       "items": [
         161,
@@ -137088,6 +137153,11 @@
       "palette": "visual-equipment/palettes/Hats_guardian_vest.act",
       "shadow": false,
       "gear": "GuardianVest",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      },
       "slot": "VESTPOS",
       "items": [
         196,
@@ -138399,7 +138469,12 @@
       "sprite": "visual-equipment/sprites/RGF/F_THROW_G_shadow.STI",
       "palette": "",
       "shadow": true,
-      "gear": ""
+      "gear": "",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      }
     },
     {
       "body": "RGF",
@@ -139345,7 +139420,12 @@
       "sprite": "visual-equipment/sprites/RGF/F_THROW_G_legs.STI",
       "palette": "",
       "shadow": false,
-      "gear": ""
+      "gear": "",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      }
     },
     {
       "body": "RGF",
@@ -140401,7 +140481,12 @@
       "sprite": "visual-equipment/sprites/RGF/F_THROW_G_torso.STI",
       "palette": "",
       "shadow": false,
-      "gear": ""
+      "gear": "",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      }
     },
     {
       "body": "RGF",
@@ -141457,7 +141542,12 @@
       "sprite": "visual-equipment/sprites/RGF/F_THROW_G_hands.STI",
       "palette": "",
       "shadow": false,
-      "gear": ""
+      "gear": "",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      }
     },
     {
       "body": "RGF",
@@ -142524,7 +142614,12 @@
       "sprite": "visual-equipment/sprites/RGF/F_THROW_G_head.STI",
       "palette": "",
       "shadow": false,
-      "gear": ""
+      "gear": "",
+      "frame_remap": {
+        "base_frames_per_direction": 14,
+        "sprite_frames_per_direction": 18,
+        "directions": 8
+      }
     },
     {
       "body": "RGF",

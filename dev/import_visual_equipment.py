@@ -149,6 +149,15 @@ def main():
                         if int(surface['directions']) != vanilla[animation][1]:
                             continue
                         original = base / surface['file'].replace('\\', '/')
+                        # LOBOT's large-male bloody-death definition reuses
+                        # 24-frame body layers from the normal death, while
+                        # vanilla and its armour layers use 7 frames per facing.
+                        # The matching bloody body layers exist in the pack.
+                        if (body == 'BGM' and animation == 'BGMHITHARDBLOOD'
+                                and original.name.upper().startswith('M_DIEHARD_')):
+                            bloody = original.with_name('M_DIEHARDB_' + original.name[len('M_DIEHARD_'):])
+                            if bloody.exists():
+                                original = bloody
                         relative = Path('sprites') / body / original.name
                         output = destination / relative
                         output.parent.mkdir(parents=True, exist_ok=True)
@@ -160,6 +169,13 @@ def main():
                                    'sprite': 'visual-equipment/' + relative.as_posix(),
                                    'palette': 'visual-equipment/palettes/' + Path(palettes[palette]).name if palette else '',
                                    'shadow': layers[layer_name]['shadow'] == '1', 'gear': gear or ''}
+                        # Vanilla female throws have 14 frames per facing;
+                        # LOBOT's corresponding overarm throw has 18. Explicitly
+                        # retime that complete set of layers, not other sheets.
+                        if body == 'RGF' and animation == 'RGFTHROW':
+                            mapping['frame_remap'] = {'base_frames_per_direction': 14,
+                                                      'sprite_frames_per_direction': 18,
+                                                      'directions': 8}
                         if gear:
                             mapping['slot'], mapping['items'] = GEAR[gear]
                         mappings.append(mapping)

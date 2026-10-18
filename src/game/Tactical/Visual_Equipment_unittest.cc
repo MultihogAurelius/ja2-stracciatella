@@ -389,6 +389,115 @@ TEST_F(VanillaGearAssets, IncompatibleOrOutOfRangeAnimationFramesKeepTheOriginal
 	gAnimSurfaceDatabase[RGMSTANDING].hVideoObject = standing;
 }
 
+TEST_F(VanillaGearAssets, HitDeathAndGrenadeAnimationsReplaceTheBodyWithWeaponsStillEquipped)
+{
+	constexpr int width = 320, height = 240, tileX = 80, tileY = 80;
+	constexpr int tile = tileY * WORLD_COLS + tileX;
+	constexpr UINT16 background = 0x4208;
+	auto surfaceBuffer = std::make_unique<SGPVSurface>(width,height,16);
+	std::vector<UINT16> depth(width * height), expected(width * height);
+	struct Restore
+	{
+		UILayout layout = g_ui;
+		SGPVSurface* surface = FRAME_BUFFER;
+		UINT16* depth = gpZBuffer;
+		MAP_ELEMENT map = gpWorldLevelData[tile];
+		INT16 offsetX = gsRenderWorldOffsetX, offsetY = gsRenderWorldOffsetY, renderHeight = gsRenderHeight;
+		~Restore()
+		{
+			g_ui = layout; FRAME_BUFFER = surface; gpZBuffer = depth; gpWorldLevelData[tile] = map;
+			gsRenderWorldOffsetX = offsetX; gsRenderWorldOffsetY = offsetY; gsRenderHeight = renderHeight;
+		}
+	} restore;
+	FRAME_BUFFER = surfaceBuffer.get(); gpZBuffer = depth.data();
+	g_ui.m_tacticalMapCenterX = 160; g_ui.m_tacticalMapCenterY = 160;
+	g_ui.m_worldClippingRect = {0,0,width,height};
+	gsRenderWorldOffsetX = gsRenderWorldOffsetY = gsRenderHeight = 0;
+	LEVELNODE node{}; node.ubShadeLevel = 6;
+	gpWorldLevelData[tile] = {}; gpWorldLevelData[tile].pMercHead = &node;
+	std::array<UINT16,256> colors{}; colors.fill(0x001f);
+	struct Body { UINT8 type; std::array<UINT16,9> surfaces; };
+	Body const bodies[] = {
+		{REGMALE,{RGMHITSTAND,RGMHITCROUCH,RGMHITPRONE,RGMHITHARD,RGMHITHARDBLOOD,RGMHITFALLBACK,RGMDIE_JFK,RGMTHROW,RGMLOB}},
+		{STOCKYMALE,{RGMHITSTAND,RGMHITCROUCH,RGMHITPRONE,RGMHITHARD,RGMHITHARDBLOOD,RGMHITFALLBACK,RGMDIE_JFK,RGMTHROW,RGMLOB}},
+		{BIGMALE,{BGMHITSTAND,BGMHITCROUCH,BGMHITPRONE,BGMHITHARD,BGMHITHARDBLOOD,BGMHITFALLBACK,BGMDIE_JFK,BGMTHROW,BGMLOB}},
+		{REGFEMALE,{RGFHITSTAND,RGFHITCROUCH,RGFHITPRONE,RGFHITHARD,RGFHITHARDBLOOD,RGFHITFALLBACK,RGFDIE_JFK,RGFTHROW,RGFLOB}},
+	};
+	for (auto const& body : bodies)
+	for (UINT16 surface : body.surfaces)
+	for (auto hands : {std::pair<UINT16,UINT16>{G11,NOTHING}, {DESERTEAGLE,3},
+		{HAND_GRENADE,3}})
+	{
+		SOLDIERTYPE soldier{};
+		soldier.ubBodyType = body.type; soldier.usAnimSurface = surface;
+		soldier.inv[HANDPOS].usItem = hands.first; soldier.inv[SECONDHANDPOS].usItem = hands.second;
+		soldier.inv[HELMETPOS].usItem = STEEL_HELMET;
+		soldier.inv[VESTPOS].usItem = KEVLAR_VEST;
+		soldier.bActive = TRUE; soldier.bLastRenderVisibleValue = 1; soldier.bSide = OUR_TEAM;
+		soldier.sZLevelOverride = 1000;
+		soldier.dXPos = gsRenderCenterX; soldier.dYPos = gsRenderCenterY;
+		soldier.pShades[4] = colors.data();
+		node.pSoldier = &soldier;
+		auto* base = LoadBase(surface);
+		base->ppZStripInfo = std::make_unique<std::unique_ptr<ZStripInfo>[]>(8);
+		for (int i = 0; i < 8; ++i)
+		{
+			base->ppZStripInfo[i] = std::make_unique<ZStripInfo>();
+			base->ppZStripInfo[i]->ubFirstZStripWidth = 20;
+		}
+		const int perDirection = base->SubregionCount() / 8;
+		for (UINT16 frame = 0; frame < base->SubregionCount(); ++frame)
+		{
+			SCOPED_TRACE(testing::Message() << "Body " << int(body.type) << ", surface " << surface
+				<< ", hands " << hands.first << '/' << hands.second << ", frame " << frame);
+			auto const appearance = GetVisualEquipmentAppearance(soldier, frame);
+			ASSERT_TRUE(appearance.replaceBase) << "An animation that hides weapons must not restore the original body. "
+				<< gAnimSurfaceDatabase[surface].Filename << ", base frames " << base->SubregionCount()
+				<< ", layers " << appearance.layers.size();
+			EXPECT_EQ(FindLayer(appearance,"gun"),nullptr);
+			EXPECT_EQ(FindLayer(appearance,"gunleft"),nullptr);
+			// Exercise the real ground renderer at both ends of each facing.
+			// Validate every frame's replacement decision above, without making
+			// the pixel comparison unnecessarily expensive for long death sheets.
+			if (frame % perDirection != 0 && frame % perDirection != perDirection - 1) continue;
+			soldier.usAniFrame = frame;
+			soldier.bDirection = frame / perDirection;
+			auto const composite = ComposeVisualEquipment(appearance,soldier,colors.data());
+			std::fill(expected.begin(),expected.end(),background);
+			DrawVisualEquipment(composite.frame,expected.data(),width * 2,nullptr,1000,160,160,
+				g_ui.m_worldClippingRect,composite.colors.data(),false,false,false,false,false,true);
+			for (bool multiTile : {false,true})
+			{
+				soldier.uiStatusFlags = multiTile ? SOLDIER_MULTITILE : 0;
+				surfaceBuffer->Fill(background); std::fill(depth.begin(),depth.end(),0);
+				RenderMercForTesting(tileX,tileY,multiTile);
+				SGPVSurface::Lock actual(surfaceBuffer.get());
+				int mismatches = 0;
+				for (int y = 0; y < height; ++y)
+				{
+					auto const* row = reinterpret_cast<UINT16 const*>(reinterpret_cast<UINT8 const*>(actual.Buffer<UINT16>()) + y * actual.Pitch());
+					for (int x = 0; x < width; ++x) mismatches += row[x] != expected[y * width + x];
+				}
+				ASSERT_EQ(mismatches,0) << "Legacy body leaked into " << (multiTile ? "multi-tile" : "normal") << " rendering.";
+			}
+		}
+	}
+}
+
+TEST_F(VanillaGearAssets, MissingWeaponArtOnAnArmedSheetStillKeepsTheOriginalBody)
+{
+	SOLDIERTYPE soldier{};
+	soldier.ubBodyType = REGMALE; soldier.usAnimSurface = RGMSTANDING;
+	soldier.inv[HANDPOS].usItem = DESERTEAGLE;
+	soldier.inv[HELMETPOS].usItem = STEEL_HELMET;
+	LoadBase(RGMSTANDING);
+	// This rifle sheet has gun artwork, but not for a pistol. Normal gameplay
+	// uses RGMPISTOLBREATH instead; a mismatch must keep the safe fallback.
+	auto const appearance = GetVisualEquipmentAppearance(soldier,0);
+	EXPECT_FALSE(appearance.replaceBase);
+	EXPECT_EQ(FindLayer(appearance,"gun"),nullptr);
+}
+
 TEST_F(VanillaGearAssets, ArmouredDualGunsRespectWallsAndClippingAt1080p)
 {
 	constexpr int width = 1920, height = 1080, stride = width + 8, guard = 32;
@@ -541,7 +650,7 @@ TEST_F(VanillaGearAssets, ProneWorldRendererDrawsOnlyTheReplacementBody)
 			DrawVisualEquipment(composite.frame,expected.data(),width * 2,nullptr,1000,160,160,
 				g_ui.m_worldClippingRect,composite.colors.data(),false,false,false,false,false,true);
 			surface->Fill(background); std::fill(depth.begin(),depth.end(),0);
-			RenderMultiTileMercForTesting(tileX,tileY);
+			RenderMercForTesting(tileX,tileY,true);
 			SGPVSurface::Lock actual(surface.get());
 			int mismatches = 0;
 			for (int y = 0; y < height; ++y)

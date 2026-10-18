@@ -29,6 +29,7 @@ struct Mapping
 	unsigned condition{};
 	std::vector<UINT16> items;
 	bool shadow{};
+	unsigned baseFramesPerDirection{}, spriteFramesPerDirection{}, directions{};
 };
 struct HandCondition
 {
@@ -107,6 +108,13 @@ void LoadDefinitions()
 			mapping.gear = entry.GetString("gear");
 			mapping.condition = entry.GetUInt("condition");
 			mapping.shadow = entry.getOptionalBool("shadow");
+			if (entry.has("frame_remap"))
+			{
+				auto remap = entry["frame_remap"].toObject();
+				mapping.baseFramesPerDirection = remap.GetUInt("base_frames_per_direction");
+				mapping.spriteFramesPerDirection = remap.GetUInt("sprite_frames_per_direction");
+				mapping.directions = remap.GetUInt("directions");
+			}
 			if (!mapping.gear.empty())
 			{
 				mapping.slot = entry.GetString("slot");
@@ -196,6 +204,20 @@ bool Matches(Mapping const& mapping, SOLDIERTYPE const& soldier)
 		if (Contains(condition.right, right) && Contains(condition.left, left)) return true;
 	return false;
 }
+bool EquipmentFrameIndex(Mapping const& mapping, unsigned index, unsigned baseCount, size_t spriteCount, unsigned& sourceIndex)
+{
+	if (index >= baseCount) return false;
+	sourceIndex = index;
+	if (spriteCount == baseCount) return true;
+	// Only explicitly documented conversions may differ from vanilla's frame
+	// layout. Keep facing and endpoints intact; never read another direction.
+	const unsigned from = mapping.baseFramesPerDirection, to = mapping.spriteFramesPerDirection;
+	if (from < 2 || to < 2 || mapping.directions == 0 ||
+		baseCount != from * mapping.directions || spriteCount != to * mapping.directions) return false;
+	sourceIndex = (index / from) * to + ((index % from) * (to - 1) + (from - 1) / 2) / (from - 1);
+	return sourceIndex < spriteCount;
+}
+
 std::shared_ptr<const VisualEquipmentFrame> Frame(Mapping const& mapping, UINT16 index, unsigned baseCount)
 {
 	auto found = sprites.find(mapping.sprite);
@@ -215,8 +237,9 @@ std::shared_ptr<const VisualEquipmentFrame> Frame(Mapping const& mapping, UINT16
 	}
 	auto const& frames = found->second->frames;
 	found->second->lastUse = ++spriteClock;
-	if (frames.size() != baseCount || index >= frames.size()) return nullptr;
-	return {found->second, &frames[index]};
+	unsigned sourceIndex;
+	if (!EquipmentFrameIndex(mapping, index, baseCount, frames.size(), sourceIndex)) return nullptr;
+	return {found->second, &frames[sourceIndex]};
 }
 }
 
@@ -259,15 +282,24 @@ VisualEquipmentAppearance GetVisualEquipmentAppearance(SOLDIERTYPE const& soldie
 		return std::any_of(result.layers.begin(), result.layers.end(),
 			[&](VisualEquipmentLayer const& layer) { return layer.name == name; });
 	};
+	auto supports = [&](char const* name)
+	{
+		return std::any_of(found->second.begin(), found->second.end(),
+			[&](Mapping const& mapping) { return mapping.layer == name; });
+	};
 	auto const* right = GCM->getItem(soldier.inv[HANDPOS].usItem);
 	auto const* left = GCM->getItem(soldier.inv[SECONDHANDPOS].usItem);
 	bool const rightWeapon = right->isWeapon() && soldier.inv[HANDPOS].usItem != NOTHING;
 	bool const leftGun = left->isGun();
 	// All foundational body parts must exist before suppressing the original.
-	// Water sheets intentionally omit legs. Missing weapon art also falls back.
+	// Water sheets intentionally omit legs. Hit/death/throw sheets can omit
+	// weapons entirely, even while the inventory still contains one. Require
+	// weapon art only on sheets that actually support drawing that hand.
+	// Missing or incompatible art on an armed sheet must still fall back.
 	bool const water = ST::string(base.Filename).to_lower().contains("water");
 	result.replaceBase = heldWeapons && (worn || rightWeapon || leftGun) && has("body") && has("head") && has("hands") &&
-		(has("legs") || water) && (!rightWeapon || has("gun")) && (!leftGun || has("gunleft"));
+		(has("legs") || water) && (!rightWeapon || !supports("gun") || has("gun")) &&
+		(!leftGun || !supports("gunleft") || has("gunleft"));
 	if (!result.replaceBase)
 	{
 		// Overlay worn gear safely; never overlay a new gun on the generic old gun.
@@ -401,3 +433,33 @@ void DrawVisualEquipment(const VisualEquipmentFrame& frame, UINT16* buffer, UINT
 		}
 	}
 }
+
+#ifdef WITH_UNITTESTS
+#include "gtest/gtest.h"
+
+TEST(VisualEquipment, ExplicitFrameConversionPreservesFacingAndAnimationEndpoints)
+{
+	Mapping mapping;
+	mapping.baseFramesPerDirection = 14;
+	mapping.spriteFramesPerDirection = 18;
+	mapping.directions = 8;
+	unsigned source;
+	for (unsigned facing = 0; facing < 8; ++facing)
+	{
+		unsigned previous = facing * 18;
+		for (unsigned frame = 0; frame < 14; ++frame)
+		{
+			ASSERT_TRUE(EquipmentFrameIndex(mapping, facing * 14 + frame, 112, 144, source));
+			EXPECT_EQ(source / 18, facing);
+			EXPECT_GE(source, previous);
+			previous = source;
+			if (frame == 0) EXPECT_EQ(source, facing * 18);
+			if (frame == 13) EXPECT_EQ(source, facing * 18 + 17);
+		}
+	}
+	EXPECT_FALSE(EquipmentFrameIndex(mapping,112,112,144,source));
+	EXPECT_FALSE(EquipmentFrameIndex(mapping,0,104,144,source));
+	EXPECT_FALSE(EquipmentFrameIndex(mapping,0,112,136,source));
+	EXPECT_FALSE(EquipmentFrameIndex(Mapping{},0,112,144,source));
+}
+#endif

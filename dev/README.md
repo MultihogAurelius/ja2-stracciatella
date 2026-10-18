@@ -19,6 +19,19 @@ python dev/import_visual_equipment.py "F:\JA2 1.13 game files"
 Use `git status` and `git diff` to review changes before each commit. Keep new
 features and fixes in separate commits so they can be compared or reverted.
 
+## LOBOT hit, death and throw animations
+
+Complete body replacements remain active when an animation intentionally hides
+held weapons. Missing weapon art on a sheet that draws weapons still uses the
+original fallback. The importer selects the matching 7-frame-per-facing bloody
+death layers for large males. Female overarm throws explicitly retime LOBOT's
+18 frames per facing onto vanilla's 14-frame timeline, preserving directions
+and endpoints. Other frame-count mismatches remain rejected.
+
+Regression checks cover all frames of nine hit/death/throw animations for all
+four supported body types with rifles, dual pistols, and grenades. Pixel checks
+exercise normal and multi-tile world rendering in every direction.
+
 ## Voluntary rooftop positions
 
 Alerted enemy soldiers and militia can consider nearby rooftop landing tiles
