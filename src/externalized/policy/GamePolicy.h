@@ -60,6 +60,7 @@ public:
 
 	bool avoid_ambushes;                  // AI able to recognize and avoid ambushes on seeing friendlies' corpses
 	bool stay_on_rooftop;                 // AI on guard on rooftop are disallowed to go down
+	int8_t rooftop_position_preference;   // Small AI position-score bonus; 0 disables voluntary roof climbing
 
 	int8_t enemy_elite_minimum_level;     // increase challenge: minimum experience level for enemy elite soldier
 	int8_t enemy_elite_maximum_level;     // maximum experience level for enemy elite soldier

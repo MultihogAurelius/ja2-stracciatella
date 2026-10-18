@@ -19,6 +19,7 @@
 #include "Quests.h"
 #include "Render_Fun.h"
 #include "Rotting_Corpses.h"
+#include "RooftopAI.h"
 #include "Scheduling.h"
 #include "Soldier_Ani.h"
 #include "Soldier_Functions.h"
@@ -1878,6 +1879,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
+	if (DecideRooftopPosition(pSoldier) == AI_ACTION_MOVE_TO_CLIMB)
+	{
+		return AI_ACTION_MOVE_TO_CLIMB;
+	}
+
 	if ( !TANK( pSoldier ) )
 	{
 		////////////////////////////////////////////////////////////////////////////
@@ -3075,6 +3081,15 @@ static INT8 DecideActionBlack(SOLDIERTYPE* pSoldier)
 #ifdef RETREAT_TESTING
 	sBestCover = NOWHERE;
 #endif
+
+	// Keep a worthwhile attack (and all emergency decisions above) ahead of
+	// voluntary climbing. Compare against any ground cover already found.
+	if ((ubBestAttackAction == AI_ACTION_NONE ||
+		(ubBestAttackAction == AI_ACTION_FIRE_GUN && BestAttack.ubChanceToReallyHit < 35)) &&
+		DecideRooftopPosition(pSoldier, sBestCover) == AI_ACTION_MOVE_TO_CLIMB)
+	{
+		return AI_ACTION_MOVE_TO_CLIMB;
+	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// IF NECESSARY, DECIDE BETWEEN ATTACKING AND DEFENDING (TAKING COVER)

@@ -19,6 +19,29 @@ python dev/import_visual_equipment.py "F:\JA2 1.13 game files"
 Use `git status` and `git diff` to review changes before each commit. Keep new
 features and fixes in separate commits so they can be compared or reverted.
 
+## Voluntary rooftop positions
+
+Alerted enemy soldiers and militia can consider nearby rooftop landing tiles
+as firing positions. This supplements the existing pursuit/climbing AI.
+The `ai.rooftop_position_preference` value in `assets/externalized/game.json`
+defaults to 5 (range 0–20); 0 disables voluntary climbing.
+
+The search uses recent personal/team sightings, tests firing sight lines and
+bullet obstruction in both directions, and charges approach/climb AP. It keeps
+enough AP for a shot and rejects substantially more exposed approaches or
+landings. It runs at the start of a turn, within six tiles of a climb point,
+and does not override emergency actions, stationary/scripted guards, or a
+reasonably good immediate attack. Existing ground cover is an alternative
+when the BLACK AI has already found one. It does not reserve roofs or change
+save-game data. `RooftopAI.*` tests cover scoring, eligibility, enemy memory,
+AP reserves, and the real firing-geometry evaluation.
+
+For an in-game check, use a separate save in a surface sector with flat roofs.
+Alert armed patrols or militia to enemies near a building. Observe whether
+they use useful roof edges when their ground shot is blocked or poor, retain
+AP to shoot, and avoid climbing after taking fire. Try the same encounter
+with preference 0 to compare. The debug log records selected climb locations.
+
 ## Selected upstream bug fixes
 
 Three fixes are cherry-picked with upstream authorship and original commit IDs:

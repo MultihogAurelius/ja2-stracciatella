@@ -95,7 +95,11 @@
 
     //  Enemy guards on rooftop are disallowed to climb down
     //  vanilla value: false
-    "stay_on_rooftop": false
+    "stay_on_rooftop": false,
+
+    // Small preference when a nearby roof offers a worthwhile firing position.
+    // 0 disables voluntary roof climbing; pursuit climbing is unchanged.
+    "rooftop_position_preference": 5
   },
 
   //  How much variation should there be in elite soldier xp level?

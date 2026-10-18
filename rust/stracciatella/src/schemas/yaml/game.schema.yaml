@@ -162,6 +162,14 @@ properties:
           Enemy guards on rooftop are disallowed to climb down
           
           Vanilla setting: `false`
+      rooftop_position_preference:
+        type: integer
+        minimum: 0
+        maximum: 20
+        title: Rooftop position preference
+        description: |
+          Small position-score bonus for voluntary climbing to a useful nearby
+          rooftop firing position. 0 disables this behaviour. Default: 5.
     required:
       - better_aiming_choice
       - go_prone_more_often

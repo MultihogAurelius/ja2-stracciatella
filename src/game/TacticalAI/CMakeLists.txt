@@ -14,6 +14,7 @@ set(LOCAL_JA2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/NPC.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/PanicButtons.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/Realtime.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/RooftopAI.cc
 )
 
 set_property(
